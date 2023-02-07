@@ -4,7 +4,7 @@ import InfiteScroll from 'react-infinite-scroll-component'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
 import { getPosts } from '../helpers/api'
-import type { Filter } from '../types'
+import type { Filter, PaginatedPost } from '../types'
 import Card from './Card'
 import Loader from './icons/Loader'
 
@@ -18,7 +18,7 @@ export default function Posts({ filters, onChangeFilters }: Props) {
     useInfiniteQuery({
       queryKey: ['posts', filters],
       queryFn: ({ pageParam = 1 }) => getPosts(pageParam, filters),
-      getNextPageParam: (lastPage) => {
+      getNextPageParam: (lastPage: any) => {
         if (!lastPage.hasNextPage) return false
         return lastPage.nextPage
       },
@@ -50,7 +50,10 @@ export default function Posts({ filters, onChangeFilters }: Props) {
     return <div>An error has ocurred</div>
   }
 
-  const posts = data?.pages.flatMap((page) => page.docs)
+  const posts = data?.pages.flatMap((page: any) => {
+    console.log({ page })
+    return page.docs
+  })
 
   return (
     <main className='pb-10 px-20'>

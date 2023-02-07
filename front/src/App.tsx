@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom'
 import { onAuthStateChanged, User } from 'firebase/auth'
 
 import Nav from './components/Nav'
-import Detail from './components/Detail'
 import ScrollToTop from './helpers/ScrollToTop'
 import Posts from './components/Posts'
 import AddPost from './components/AddPost'
