@@ -9,7 +9,7 @@ export const getPosts = async (
   filters: Filter
 ): Promise<PaginatedPost> => {
   const response = await axios.get(
-    `http://192.168.0.172:3001/post?page=${page}&order=${filters.order}&filter=${filters.filter}`
+    `https://post-app-h399.onrender.com/post?page=${page}&order=${filters.order}&filter=${filters.filter}`
   )
 
   const post = response.data
@@ -20,7 +20,7 @@ export const getPosts = async (
 export const postComment = async (
   data: FieldValues
 ): Promise<PaginatedPost> => {
-  const post = await axios.post(`http://192.168.0.172:3001/post`, {
+  const post = await axios.post(`https://post-app-h399.onrender.com/post`, {
     post: data,
   })
 
