@@ -47,7 +47,7 @@ export default function Posts({ filters, onChangeFilters }: Props) {
   }
 
   if (isError) {
-    return <div>Error</div>
+    return <div>An error has ocurred</div>
   }
 
   const posts = data?.pages.flatMap((page) => page.docs)
@@ -73,6 +73,7 @@ export default function Posts({ filters, onChangeFilters }: Props) {
           <Card
             key={post._id}
             username={post.username}
+            image={post?.image}
             description={post.description}
             createdAt={post.createdAt}
             likes={post.likes}

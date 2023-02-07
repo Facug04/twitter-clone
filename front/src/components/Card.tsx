@@ -3,12 +3,14 @@ import { formatDistance } from 'date-fns'
 import { es } from 'date-fns/locale'
 
 import { Post } from '../types'
+import img from '/user-icon.png'
 
 export default function Card({
   description,
   likes,
   createdAt,
   username,
+  image,
   comments,
 }: Post) {
   const timeAgo = formatDistance(new Date(createdAt), new Date(), {
@@ -18,8 +20,10 @@ export default function Card({
 
   return (
     <div className='w-full border border-white p-4 rounded mb-4'>
-      <div className='flex items-center gap-2 mb-3'>
-        <div className='w-10 h-10 rounded-[50%] border-white border'></div>
+      <div className='flex items-center gap-2 mb-3 invert-0'>
+        <div className='w-10 h-10 border-white border-2 rounded-[50%] flex justify-center'>
+          <img className='w-9 h-9' src={image ? image : img} />
+        </div>
         <p>{username}</p>
       </div>
       <div className='px-2'>

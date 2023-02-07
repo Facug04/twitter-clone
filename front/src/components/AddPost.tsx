@@ -9,7 +9,6 @@ type Props = {
 }
 
 export default function AddPost({ user }: Props) {
-  console.log(user)
   const {
     register,
     formState: { errors },

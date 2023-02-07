@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { singInGoogle, logOut } from '../helpers/firebase'
 import Loader from './icons/Loader'
+import img from '/user-icon.png'
 
 type Props = {
   user: boolean | undefined
@@ -14,12 +15,12 @@ export default function Nav({ user, currentUser }: Props) {
     const googleProvider = new GoogleAuthProvider()
     await singInGoogle(googleProvider)
   }
-
+  console.log(currentUser)
   return (
     <header className=''>
       <nav className='flex items-center justify-between py-5 px-20'>
         <Link to='/'>
-          <div className=''>PostsApp</div>
+          <h1 className='font-lexendBold text-xl'>PostsApp</h1>
         </Link>
         {typeof user === 'undefined' ? (
           <div>
@@ -30,7 +31,7 @@ export default function Nav({ user, currentUser }: Props) {
             <div className='w-10 cursor-pointer'>
               <img
                 className='rounded-[50%]'
-                src={currentUser?.photoURL || undefined}
+                src={currentUser?.photoURL || img}
                 alt='profile-pic'
               />
             </div>

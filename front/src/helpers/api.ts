@@ -8,11 +8,13 @@ export const getPosts = async (
   page: number,
   filters: Filter
 ): Promise<PaginatedPost> => {
-  const post = await axios.get(
+  const response = await axios.get(
     `http://192.168.0.172:3001/post?page=${page}&order=${filters.order}&filter=${filters.filter}`
   )
 
-  return post.data
+  const post = response.data
+
+  return post
 }
 
 export const postComment = async (

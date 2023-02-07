@@ -4,6 +4,7 @@ import mongoosePaginate from 'mongoose-paginate-v2'
 const postSchema = mongoose.Schema(
   {
     username: String,
+    image: String,
     description: String,
     likes: Number,
     comments: Array,

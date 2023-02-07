@@ -1,6 +1,7 @@
 export type Post = {
   _id?: string
   username: string
+  image?: string
   description: string
   likes: number
   comments: string[]
