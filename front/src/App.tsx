@@ -36,8 +36,12 @@ export default function App() {
           path='/'
           element={
             <>
-              <AddPost user={userExist} />
-              <Posts filters={filters} onChangeFilters={onChangeFilters} />
+              <AddPost user={userExist} currentUser={currentUser} />
+              <Posts
+                filters={filters}
+                idUser={currentUser?.uid}
+                onChangeFilters={onChangeFilters}
+              />
             </>
           }
         />
