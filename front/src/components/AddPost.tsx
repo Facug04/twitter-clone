@@ -1,3 +1,4 @@
+import { User } from 'firebase/auth'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { FieldValues, useForm } from 'react-hook-form'
 
@@ -6,9 +7,10 @@ import Loader from './icons/Loader'
 
 type Props = {
   user: boolean | undefined
+  currentUser: User | null
 }
 
-export default function AddPost({ user }: Props) {
+export default function AddPost({ user, currentUser }: Props) {
   const {
     register,
     formState: { errors },
@@ -29,11 +31,24 @@ export default function AddPost({ user }: Props) {
   })
 
   const onSubmit = (data: FieldValues) => {
-    mutate(data, {
-      onSuccess: () => {
-        reset()
-      },
-    })
+    if (user) {
+      const newPost = {
+        ...data,
+        image: currentUser?.photoURL,
+        username: currentUser?.displayName,
+      }
+      mutate(newPost, {
+        onSuccess: () => {
+          reset()
+        },
+      })
+    } else {
+      mutate(data, {
+        onSuccess: () => {
+          reset()
+        },
+      })
+    }
   }
 
   if (user === undefined) return <div></div>
