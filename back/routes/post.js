@@ -28,7 +28,7 @@ postRouter.post('/', (req, res) => {
   console.log(post)
   if (!post?.username) return res.status(404).send()
 
-  const newPost = new postModel({ ...post })
+  const newPost = new postModel({ ...post, likes: [], comments: [] })
 
   newPost.save().then((savePost) => res.json(savePost))
 })
