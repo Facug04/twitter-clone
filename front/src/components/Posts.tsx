@@ -11,9 +11,10 @@ import Loader from './icons/Loader'
 type Props = {
   filters: Filter
   onChangeFilters: (order: string, filter?: string) => void
+  idUser: string
 }
 
-export default function Posts({ filters, onChangeFilters }: Props) {
+export default function Posts({ filters, onChangeFilters, idUser }: Props) {
   const { data, isLoading, isError, hasNextPage, fetchNextPage } =
     useInfiniteQuery({
       queryKey: ['posts', filters],
@@ -50,10 +51,7 @@ export default function Posts({ filters, onChangeFilters }: Props) {
     return <div>An error has ocurred</div>
   }
 
-  const posts = data?.pages.flatMap((page: any) => {
-    console.log({ page })
-    return page.docs
-  })
+  const posts = data?.pages.flatMap((page: any) => page.docs)
 
   return (
     <main className='pb-10 px-20'>
@@ -75,6 +73,8 @@ export default function Posts({ filters, onChangeFilters }: Props) {
         {posts.map((post) => (
           <Card
             key={post._id}
+            _id={post._id}
+            idUser={idUser}
             username={post.username}
             image={post?.image}
             description={post.description}
