@@ -27,6 +27,13 @@ export const postComment = async (
   return post.data
 }
 
+export const postLike = async (id: string, idUser: string) => {
+  await axios.post(`https://post-app-h399.onrender.com/post/like`, {
+    id,
+    idUser,
+  })
+}
+
 // export const getGame = (id: string | undefined): Promise<GameType> => {
 //   const game = axios
 //     .get(`http://localhost:3001/game/${id}`)
