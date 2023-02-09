@@ -1,9 +1,9 @@
 export type Post = {
-  _id?: string
+  _id: string
   username: string
   image?: string
   description: string
-  likes: number
+  likes: string[]
   comments: string[]
   createdAt: Date
 }
