@@ -55,6 +55,22 @@ postRouter.post('/like', async (req, res) => {
   }
 })
 
+postRouter.post('/comment', async (req, res) => {
+  const { id, username, comment, image } = req.body
+
+  if (!id) return res.status(404).send()
+
+  const { comments } = await postModel.findById(id)
+
+  postModel
+    .findOneAndUpdate(
+      { _id: id },
+      { comments: [...comments, { username, comment, image }] }
+    )
+    .then((response) => res.json(response))
+    .catch((err) => res.status(404).json({ error: err }))
+})
+
 // postRouter.post('/xd', async (req, res) => {
 //   const doc = await postModel.findById('63a1f70d189536dc77c4ff1d')
 //   doc.likes = 4
