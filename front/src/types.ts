@@ -4,8 +4,14 @@ export type Post = {
   image?: string
   description: string
   likes: string[]
-  comments: string[]
+  comments: Comment[]
   createdAt: Date
+}
+
+export type Comment = {
+  username: string
+  comment: string
+  image: string
 }
 
 export type PaginatedPost = {
