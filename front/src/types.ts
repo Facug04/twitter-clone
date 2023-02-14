@@ -12,6 +12,7 @@ export type Comment = {
   username: string
   comment: string
   image: string
+  idComment: string
 }
 
 export type PaginatedPost = {
