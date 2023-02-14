@@ -41,6 +41,7 @@ export default function App() {
                 filters={filters}
                 idUser={currentUser?.uid}
                 onChangeFilters={onChangeFilters}
+                username={currentUser?.displayName}
               />
             </>
           }
