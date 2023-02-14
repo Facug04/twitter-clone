@@ -2,7 +2,7 @@ import { User } from 'firebase/auth'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { FieldValues, useForm } from 'react-hook-form'
 
-import { postComment } from '../helpers/api'
+import { deleteComment, postComment } from '../helpers/api'
 import type { Comment } from '../types'
 import { useState } from 'react'
 
@@ -11,32 +11,52 @@ type Props = {
   actualUser: string | undefined | null
   comments: Comment[]
   id: string
+  addPost: Comment[]
+  changePost: (comment: Comment) => void
+  username: string
+  initialComments: Comment[]
+  changeInitialComments: (idComment: string) => void
 }
 
-export default function Comments({ image, actualUser, comments, id }: Props) {
+export default function Comments({
+  image,
+  actualUser,
+  comments,
+  id,
+  addPost,
+  changePost,
+  username,
+  initialComments,
+  changeInitialComments,
+}: Props) {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
   } = useForm()
-  const [addPost, setAddPost] = useState<Comment[]>([])
 
-  // console.log({ image })
   const onSubmit = (data: FieldValues) => {
-    console.log(data)
+    console.log({ actualUser })
     const { comment } = data
 
     postComment(id, image, actualUser, comment)
       .then(() => {
-        setAddPost((befPost) =>
-          befPost.concat({
-            image: image || '',
-            username: actualUser || '',
-            comment,
-          })
-        )
+        changePost({
+          image: image || '',
+          username: actualUser || '',
+          comment,
+          idComment: '',
+        })
         reset()
+      })
+      .catch((err) => console.error(err))
+  }
+
+  const removeComment = (idComment: string) => {
+    deleteComment(id, idComment)
+      .then(() => {
+        changeInitialComments(idComment)
       })
       .catch((err) => console.error(err))
   }
@@ -44,7 +64,7 @@ export default function Comments({ image, actualUser, comments, id }: Props) {
   return (
     <div className='mb-4'>
       <div className='w-full px-8 py-3 rounded'>
-        {!comments.length && (
+        {(!comments.length || !addPost.length) && (
           <h3 className='mb-2'>Se el primero en comentar</h3>
         )}
         {actualUser ? (
@@ -78,12 +98,12 @@ export default function Comments({ image, actualUser, comments, id }: Props) {
             </div>
           </form>
         ) : (
-          <h3>Inicia sesion para comentar</h3>
+          <h3 className='mb-6'>Inicia sesión para comentar</h3>
         )}
         {!!comments.length && (
           <div>
-            {comments.map((comment) => (
-              <div key={comment.username + 'a'} className='mb-4'>
+            {initialComments.map((comment) => (
+              <div key={comment.idComment} className='mb-4 relative'>
                 <div className='flex items-center gap-2 mb-3 invert-0'>
                   <div className='w-10 h-10 border-white border-2 rounded-[50%] flex justify-center'>
                     <img
@@ -94,12 +114,20 @@ export default function Comments({ image, actualUser, comments, id }: Props) {
                   <p>{comment.username}</p>
                 </div>
                 <p>{comment.comment}</p>
+                {actualUser === username && (
+                  <button
+                    className='absolute right-0 top-[9px] text-red-600'
+                    onClick={() => removeComment(comment.idComment)}
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             ))}
           </div>
         )}
-        {addPost.map((comment) => (
-          <div key={comment.username + 'b'} className='mb-4'>
+        {addPost.map((comment, index) => (
+          <div key={comment.username + index} className='mb-4'>
             <div className='flex items-center gap-2 mb-3 invert-0'>
               <div className='w-10 h-10 border-white border-2 rounded-[50%] flex justify-center'>
                 <img className='w-9 h-9 rounded-[50%]' src={comment.image} />
