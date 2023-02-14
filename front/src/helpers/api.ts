@@ -46,6 +46,13 @@ export const postComment = async (
   })
 }
 
+export const deleteComment = async (id: string, idComment: string) => {
+  await axios.post(`http://localhost:3001/post/delete`, {
+    id,
+    idComment,
+  })
+}
+
 // export const getGame = (id: string | undefined): Promise<GameType> => {
 //   const game = axios
 //     .get(`http://localhost:3001/game/${id}`)
