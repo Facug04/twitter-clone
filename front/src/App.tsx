@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom'
 import { onAuthStateChanged, User } from 'firebase/auth'
 
 import Nav from './components/Nav'
-import ScrollToTop from './helpers/ScrollToTop'
 import Posts from './components/Posts'
 import AddPost from './components/AddPost'
 import { auth } from './helpers/firebase'
@@ -28,7 +27,6 @@ export default function App() {
 
   return (
     <div className='text-white'>
-      <ScrollToTop />
       <Nav user={userExist} currentUser={currentUser} />
       <Routes>
         {/* <Route path='/' element={<Games />} /> */}
