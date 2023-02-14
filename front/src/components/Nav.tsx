@@ -15,6 +15,11 @@ export default function Nav({ user, currentUser }: Props) {
     const googleProvider = new GoogleAuthProvider()
     await singInGoogle(googleProvider)
   }
+
+  const handleSesion = async () => {
+    await logOut()
+    window.location.reload()
+  }
   console.log(currentUser)
   return (
     <header className=''>
@@ -35,7 +40,7 @@ export default function Nav({ user, currentUser }: Props) {
                 alt='profile-pic'
               />
             </div>
-            <button onClick={logOut}>Cerrar sesion</button>
+            <button onClick={handleSesion}>Cerrar sesion</button>
           </div>
         ) : (
           <div
