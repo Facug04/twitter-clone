@@ -1,4 +1,6 @@
 import express from 'express'
+import { v4 as uuidv4 } from 'uuid'
+
 import postModel from '../schemas/post-schema.js'
 
 const postRouter = express.Router()
@@ -62,11 +64,30 @@ postRouter.post('/comment', async (req, res) => {
 
   const { comments } = await postModel.findById(id)
 
+  const idComment = uuidv4()
+
   postModel
     .findOneAndUpdate(
       { _id: id },
-      { comments: [...comments, { username, comment, image }] }
+      { comments: [...comments, { idComment, username, comment, image }] }
     )
+    .then((response) => res.json(response))
+    .catch((err) => res.status(404).json({ error: err }))
+})
+
+postRouter.post('/delete', async (req, res) => {
+  const { id, idComment } = req.body
+
+  if (!id || !idComment) return res.status(404).send()
+
+  const { comments } = await postModel.findById(id)
+
+  const deleteComment = comments.filter(
+    (comment) => comment.idComment !== idComment
+  )
+
+  postModel
+    .findOneAndUpdate({ id: idComment }, { comments: deleteComment })
     .then((response) => res.json(response))
     .catch((err) => res.status(404).json({ error: err }))
 })
