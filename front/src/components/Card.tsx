@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { formatDistance } from 'date-fns'
 import { es } from 'date-fns/locale'
 
-import { Post } from '../types'
+import type { Post, Comment } from '../types'
 import { postLike } from '../helpers/api'
 import img from '/user-icon.png'
 import Comments from './Comments'
@@ -31,7 +31,9 @@ export default function Card({
   const [like, setLike] = useState(false)
   const [addLike, setAddLike] = useState(likes.length)
   const [showComments, setShowComments] = useState(false)
-  console.log({ _id })
+  const [addPost, setAddPost] = useState<Comment[]>([])
+  const [initialComments, setInitialComments] = useState<Comment[]>(comments)
+
   useEffect(() => {
     if (likes.some((li) => li === idUser)) {
       setLike(true)
@@ -91,7 +93,7 @@ export default function Card({
                 >
                   &gt;
                 </div>{' '}
-                Comentarios {comments.length}
+                Comentarios {initialComments.length + addPost.length}
               </span>
             </div>
             <p className='text-sm'>{timeAgo}</p>
@@ -101,9 +103,21 @@ export default function Card({
       {showComments && (
         <Comments
           id={_id}
+          username={username}
           comments={comments}
           actualUser={actualUser}
           image={image}
+          addPost={addPost}
+          changePost={(comment: Comment) => {
+            setAddPost((befPost) => befPost.concat(comment))
+          }}
+          initialComments={initialComments}
+          changeInitialComments={(idComment: string) => {
+            const removedComment = initialComments.filter(
+              (comment) => comment.idComment !== idComment
+            )
+            setInitialComments(removedComment)
+          }}
         />
       )}
     </>
