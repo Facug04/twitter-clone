@@ -11,10 +11,16 @@ import Loader from './icons/Loader'
 type Props = {
   filters: Filter
   onChangeFilters: (order: string, filter?: string) => void
-  idUser: string
+  idUser: string | undefined
+  username: string | undefined | null
 }
 
-export default function Posts({ filters, onChangeFilters, idUser }: Props) {
+export default function Posts({
+  filters,
+  onChangeFilters,
+  idUser,
+  username,
+}: Props) {
   const { data, isLoading, isError, hasNextPage, fetchNextPage } =
     useInfiniteQuery({
       queryKey: ['posts', filters],
@@ -81,6 +87,7 @@ export default function Posts({ filters, onChangeFilters, idUser }: Props) {
             createdAt={post.createdAt}
             likes={post.likes}
             comments={post.comments}
+            actualUser={username}
           />
         ))}
       </InfiteScroll>
