@@ -60,11 +60,11 @@ export default function Posts({
   const posts = data?.pages.flatMap((page: any) => page.docs)
 
   return (
-    <main className='pb-10 px-20'>
+    <main className='border-[#2f3336] border-x-[1.5px]'>
       <select
         defaultValue={filters.filter === 'likes' ? 'likes' : filters.order}
         onChange={(e) => selectFilter(e)}
-        className='text-xl w-fit mb-4 bg-transparent cursor-pointer'
+        className='text-xl w-full bg-transparent cursor-pointer py-2 px-4 border-[#2f3336] border-b-[1.5px] '
       >
         <option value='desc'>Mas recientes</option>
         <option value='asc'>Mas antiguos</option>

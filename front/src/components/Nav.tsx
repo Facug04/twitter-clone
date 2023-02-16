@@ -2,15 +2,27 @@ import { GoogleAuthProvider, User } from 'firebase/auth'
 import { Link } from 'react-router-dom'
 
 import { singInGoogle, logOut } from '../helpers/firebase'
+import Explore from './icons/Explore'
+import Home from './icons/Home'
+import Lists from './icons/Lists'
 import Loader from './icons/Loader'
+import Messages from './icons/Messages'
+import More from './icons/More'
+import Notifications from './icons/Notifications'
+import Options from './icons/Options'
+import Profile from './icons/Profile'
+import Saved from './icons/Saved'
+import Twitter from './icons/Twitter'
 import img from '/user-icon.png'
 
 type Props = {
   user: boolean | undefined
   currentUser: User | null
+  name: { username: string; isReady: boolean }
+  changeName: (newName: string, isReady: boolean) => void
 }
 
-export default function Nav({ user, currentUser }: Props) {
+export default function Nav({ user, currentUser, name, changeName }: Props) {
   const handleClick = async () => {
     const googleProvider = new GoogleAuthProvider()
     await singInGoogle(googleProvider)
@@ -20,14 +32,58 @@ export default function Nav({ user, currentUser }: Props) {
     await logOut()
     window.location.reload()
   }
-  console.log(currentUser)
+
+  const submitName = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    changeName(name.username, true)
+  }
+
   return (
-    <header className=''>
-      <nav className='flex items-center justify-between py-5 px-20'>
-        <Link to='/'>
-          <h1 className='font-lexendBold text-xl'>PostsApp</h1>
-        </Link>
-        {typeof user === 'undefined' ? (
+    <header className='fixed w-[250px] flex flex-col justify-between h-full py-3 overflow-y-auto'>
+      <nav className='text-[#e7e9ea] w-[215px] text-normal flex flex-col gap-5'>
+        <div>
+          <Link to='/'>
+            <Twitter />
+          </Link>
+        </div>
+        <div className='flex gap-5 items-center'>
+          <Home />
+          <h2 className='font-chirp-bold '>Inicio</h2>
+        </div>
+        <div className='flex gap-5 items-center'>
+          <Explore />
+          <h2>Explorar</h2>
+        </div>
+        <div className='flex gap-5 items-center'>
+          <Notifications />
+          <h2>Notificaciones</h2>
+        </div>
+        <div className='flex gap-5 items-center'>
+          <Messages />
+          <h2>Mensajes</h2>
+        </div>
+        <div className='flex gap-5 items-center'>
+          <Saved />
+          <h2>Guardados</h2>
+        </div>
+        <div className='flex gap-5 items-center'>
+          <Lists />
+          <h2>Listas</h2>
+        </div>
+        <div className='flex gap-5 items-center'>
+          <Profile />
+          <h2>Perfil</h2>
+        </div>
+        <div className='flex gap-5 items-center'>
+          <Options />
+          <h2>Más opciones</h2>
+        </div>
+        <div>
+          <button className='bg-primary text-lg font-chirp-bold py-3 px-3 text-pri rounded-3xl w-full hover: duration-200 ease-linear'>
+            Twittear
+          </button>
+        </div>
+        {/* {typeof user === 'undefined' ? (
           <div>
             <Loader h='h-8' w='w-8' color='fill-white' />
           </div>
@@ -69,8 +125,62 @@ export default function Nav({ user, currentUser }: Props) {
               </g>
             </svg>
           </div>
-        )}
+        )} */}
       </nav>
+      <div className='flex w-fit px-3 gap-5 py-3 items-center hover:bg-profileHover hover:rounded-full duration-100 ease-linear'>
+        <div className='flex gap-2 items-center'>
+          <div className='w-10 h-10 items-center flex justify-center'>
+            {currentUser?.photoURL ? (
+              <img
+                className='w-10 h-10 rounded-[50%]'
+                src={currentUser?.photoURL}
+              />
+            ) : (
+              <img className='w-8 h-8' src={img} />
+            )}
+          </div>
+          {currentUser ? (
+            <div>
+              <h3 className='font-chirp-bold text-pri text-[15px]'>
+                Facundo Gonzalez
+              </h3>
+              <h4 className='text-secondary text-[15px]'>@Facug03</h4>
+            </div>
+          ) : name.isReady ? (
+            <div>
+              <h3 className='font-chirp-bold text-pri text-[15px]'>
+                {name.username}
+              </h3>
+              <h4 className='text-secondary text-[15px]'>@{name.username}</h4>
+            </div>
+          ) : (
+            <form onSubmit={submitName}>
+              <input
+                value={name.username}
+                name='username'
+                onChange={(e) => {
+                  changeName(e.target.value, false)
+                }}
+                className='bg-transparent font-chirp-bold placeholder:font-chirp-bold mb-1 placeholder:text-[15px] w-[130px] outline-none border-primary border-b-2'
+                placeholder='Escribe tu nombre'
+              />
+              <button className='bg-primary px-2 rounded-lg font-chirp-bold'>
+                Enviar
+              </button>
+            </form>
+          )}
+        </div>
+        <div
+          onClick={() => {
+            if (!currentUser) {
+              changeName(name.username, false)
+            }
+          }}
+          className={`${!currentUser && 'cursor-pointer'}`}
+        >
+          <More />
+        </div>
+      </div>
     </header>
   )
 }

@@ -107,7 +107,7 @@ export default function Comments({
                 <div className='flex items-center gap-2 mb-3 invert-0'>
                   <div className='w-10 h-10 border-white border-2 rounded-[50%] flex justify-center'>
                     <img
-                      className='w-9 h-9 rounded-[50%]'
+                      className='w-[26px] h-[26px] rounded-[50%]'
                       src={comment.image}
                     />
                   </div>
@@ -130,7 +130,10 @@ export default function Comments({
           <div key={comment.username + index} className='mb-4'>
             <div className='flex items-center gap-2 mb-3 invert-0'>
               <div className='w-10 h-10 border-white border-2 rounded-[50%] flex justify-center'>
-                <img className='w-9 h-9 rounded-[50%]' src={comment.image} />
+                <img
+                  className='w-[26px] h-[26px] rounded-[50%]'
+                  src={comment.image}
+                />
               </div>
               <p>{comment.username}</p>
             </div>
