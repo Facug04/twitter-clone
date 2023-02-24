@@ -236,7 +236,10 @@ Props) {
             <CommentIcon size={22.5} />
           </div>
           {commentModal && (
-            <CommentModal changeModal={() => setCommentModal(false)} />
+            <CommentModal
+              username={comment.username}
+              changeModal={() => setCommentModal(false)}
+            />
           )}
           {addCommentModal && (
             <AddCommentModal
@@ -259,7 +262,12 @@ Props) {
           >
             {like ? <RedLike /> : <Like size={22.5} />}
           </div>
-          {likeModal && <LikeModal changeModal={() => setLikeModal(false)} />}
+          {likeModal && (
+            <LikeModal
+              username={comment.username}
+              changeModal={() => setLikeModal(false)}
+            />
+          )}
           <div className='w-[38.5px] h-[38.5px] flex items-center justify-center'>
             <Share size={22.5} />
           </div>
