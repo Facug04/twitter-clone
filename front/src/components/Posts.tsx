@@ -48,7 +48,7 @@ export default function Posts({
   if (isLoading) {
     return (
       <div className='py-5 pb-10 px-20'>
-        <Loader h='h-10' w='w-10' color='fill-white' />
+        <Loader h='h-7' w='w-7' color='fill-primary' />
       </div>
     )
   }
@@ -60,11 +60,11 @@ export default function Posts({
   const posts = data?.pages.flatMap((page: any) => page.docs)
 
   return (
-    <main className='border-[#2f3336] border-x-[1.5px] '>
+    <main className='border-[#2f3336] border-x-[1.5px]'>
       <select
         defaultValue={filters.filter === 'likes' ? 'likes' : filters.order}
         onChange={(e) => selectFilter(e)}
-        className='text-xl w-full bg-transparent cursor-pointer py-2 px-4 border-[#2f3336] border-b-[1.5px] '
+        className='text-xl w-full bg-transparent cursor-pointer py-2 px-4 border-[#2f3336] border-b-[1.5px] text-pri'
       >
         <option value='desc'>Mas recientes</option>
         <option value='asc'>Mas antiguos</option>
