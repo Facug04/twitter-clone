@@ -121,7 +121,10 @@ export default function Card({
                   </p>
                 </div>
                 {commentModal && (
-                  <CommentModal changeModal={() => setCommentModal(false)} />
+                  <CommentModal
+                    username={username}
+                    changeModal={() => setCommentModal(false)}
+                  />
                 )}
                 {addCommentModal && (
                   <AddCommentModal
@@ -156,7 +159,10 @@ export default function Card({
                   </p>
                 </div>
                 {likeModal && (
-                  <LikeModal changeModal={() => setLikeModal(false)} />
+                  <LikeModal
+                    username={username}
+                    changeModal={() => setLikeModal(false)}
+                  />
                 )}
                 <div className='flex gap-1 items-center'>
                   <div className='w-[34.75px] h-[34.75px] flex items-center justify-center'>

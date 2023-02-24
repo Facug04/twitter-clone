@@ -58,7 +58,7 @@ export default function CommentModal({ changeModal, username }: Props) {
             </p>
             <p className='text-[#71767b] text-base'>
               Una vez que te unas a Twitter, podrás responder a los Tweets de
-              {username}.
+              {' ' + username}.
             </p>
           </div>
         </div>
