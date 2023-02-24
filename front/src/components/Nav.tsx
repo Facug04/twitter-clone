@@ -24,9 +24,9 @@ export default function Nav({ user, currentUser, name, changeName }: Props) {
   console.log(user)
 
   return (
-    <header className='fixed max-[505px]:bottom-0 max-[500px]:border-[#2f3336] max-[500px]:border-t-[1.5px] max-[500px]:w-full  min-[1266px]:w-[250px] flex flex-col justify-between h-full max-[505px]:h-[50px] py-3 overflow-y-auto z-[100]'>
-      <nav className='text-[#e7e9ea] w-[215px] max-[500px]:w-full max-[500px]:justify-evenly max-[505px]:flex-row text-normal flex flex-col gap-5 max-[1265px]:w-[76px] max-[600px]:w-[60px] max-[1035px]:w-[50px] max-[985px]:w-[88px] max-[1265px]:items-center max-[1265px]:gap-8'>
-        <div className='max-[500px]:hidden fill-[#d6d9db]'>
+    <header className='fixed max-[505px]:bottom-0 max-[505px]:border-[#2f3336] max-[505px]:border-t-[1.5px] max-[505px]:w-full  min-[1266px]:w-[250px] flex flex-col justify-between h-full max-[505px]:h-[50px] py-3 overflow-y-auto z-[100]'>
+      <nav className='text-[#e7e9ea] w-[215px] max-[505px]:w-full max-[505px]:justify-evenly max-[505px]:flex-row text-normal flex flex-col gap-5 max-[1265px]:w-[76px] max-[600px]:w-[60px] max-[1035px]:w-[50px] max-[985px]:w-[88px] max-[1265px]:items-center max-[1265px]:gap-8'>
+        <div className='max-[505px]:hidden fill-[#d6d9db]'>
           <Link to='/'>
             <Twitter />
           </Link>
@@ -35,7 +35,7 @@ export default function Nav({ user, currentUser, name, changeName }: Props) {
           <Home />
           <h2 className='font-chirp-bold max-[1265px]:hidden'>Inicio</h2>
         </div>
-        <div className='flex gap-5 items-center max-[500px]:hidden'>
+        <div className='flex gap-5 items-center max-[505px]:hidden'>
           <Explore />
           <h2 className='max-[1265px]:hidden'>Explorar</h2>
         </div>
@@ -47,11 +47,11 @@ export default function Nav({ user, currentUser, name, changeName }: Props) {
           <Messages />
           <h2 className='max-[1265px]:hidden'>Mensajes</h2>
         </div>
-        <div className='flex gap-5 items-center max-[500px]:hidden'>
+        <div className='flex gap-5 items-center max-[505px]:hidden'>
           <Saved />
           <h2 className='max-[1265px]:hidden'>Guardados</h2>
         </div>
-        <div className='flex gap-5 items-center max-[500px]:hidden'>
+        <div className='flex gap-5 items-center max-[505px]:hidden'>
           <Lists />
           <h2 className='max-[1265px]:hidden'>Listas</h2>
         </div>
@@ -59,11 +59,11 @@ export default function Nav({ user, currentUser, name, changeName }: Props) {
           <Profile />
           <h2 className='max-[1265px]:hidden'>Perfil</h2>
         </div>
-        <div className='flex gap-5 items-center max-[500px]:hidden'>
+        <div className='flex gap-5 items-center max-[505px]:hidden'>
           <Options />
           <h2 className='max-[1265px]:hidden'>Más opciones</h2>
         </div>
-        <div className='max-[1265px]:w-[50px] max-[500px]:hidden max-[1265px]:h-[50px] max-[1265px]:flex max-[1265px]:items-center max-[1265px]:justify-center max-[1265px]:bg-primary max-[1265px]:rounded-[50%]'>
+        <div className='max-[1265px]:w-[50px] max-[505px]:hidden max-[1265px]:h-[50px] max-[1265px]:flex max-[1265px]:items-center max-[1265px]:justify-center max-[1265px]:bg-primary max-[1265px]:rounded-[50%]'>
           <div className='min-[1266px]:hidden'>
             <Twittear />
           </div>
