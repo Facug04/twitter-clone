@@ -6,9 +6,10 @@ import CommentColor from './icons/CommentColor'
 
 type Props = {
   changeModal: () => void
+  username: string
 }
 
-export default function CommentModal({ changeModal }: Props) {
+export default function CommentModal({ changeModal, username }: Props) {
   useEffect(() => {
     document.body.style.overflow = 'hidden'
 
@@ -30,14 +31,14 @@ export default function CommentModal({ changeModal }: Props) {
         e.preventDefault()
         changeModal()
       }}
-      className='w-screen h-screen fixed flex justify-center items-center top-0 left-0 bg-[#5b708366] z-[150] cursor-default'
+      className='w-screen h-screen fixed flex justify-center items-center top-0 left-0 bg-[#5b708366] z-[300] cursor-default'
     >
       <div
         onClick={(e) => {
           e.preventDefault()
           e.stopPropagation()
         }}
-        className='max-h-[509px] h-full w-[600px] bg-black rounded-2xl'
+        className='max-[600px]:w-full min-[600px]:max-h-[509px] h-full  min-[600px]:w-[600px] bg-black min-[600px]:rounded-2xl'
       >
         <div className='h-[53px] px-1 flex items-center'>
           <button
@@ -47,7 +48,7 @@ export default function CommentModal({ changeModal }: Props) {
             &times;
           </button>
         </div>
-        <div className='px-4'>
+        <div className='px-6 min-[420px]:px-4'>
           <div className='h-12 my-4 flex items-center justify-center'>
             <CommentColor />
           </div>
@@ -57,11 +58,11 @@ export default function CommentModal({ changeModal }: Props) {
             </p>
             <p className='text-[#71767b] text-base'>
               Una vez que te unas a Twitter, podrás responder a los Tweets de
-              Messismo.
+              {username}.
             </p>
           </div>
         </div>
-        <div className='max-w-[400px] mx-auto flex flex-col gap-4 font-chirp-bold text-lg'>
+        <div className='max-[420px]:px-6 max-w-[400px] mx-auto flex flex-col gap-4 font-chirp-bold text-lg'>
           <button
             onClick={handleClick}
             className='h-[50px] bg-primary rounded-3xl text-white'
