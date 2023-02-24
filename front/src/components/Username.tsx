@@ -71,7 +71,7 @@ export default function Username({
               <h4 className='text-secondary text-[15px]'>@{name.username}</h4>
             </div>
           ) : (
-            <form onSubmit={submitName}>
+            <form className='flex flex-col items-center' onSubmit={submitName}>
               <input
                 value={name.username}
                 name='username'
@@ -81,7 +81,7 @@ export default function Username({
                 className='bg-transparent text-pri font-chirp-bold placeholder:font-chirp-bold mb-1 placeholder:text-[15px] w-[130px] outline-none border-primary border-b-2'
                 placeholder='Escribe tu nombre'
               />
-              <button className='bg-primary text-pri px-2 rounded-lg font-chirp-bold'>
+              <button className='bg-primary w-4/5 text-pri px-2 rounded-lg font-chirp-bold'>
                 Enviar
               </button>
             </form>

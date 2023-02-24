@@ -60,7 +60,7 @@ export default function Posts({
   const posts = data?.pages.flatMap((page: any) => page.docs)
 
   return (
-    <main className='border-[#2f3336] border-x-[1.5px]'>
+    <main className='border-[#2f3336] border-x-[1.5px] max-[505px]:mb-[50px]'>
       <select
         defaultValue={filters.filter === 'likes' ? 'likes' : filters.order}
         onChange={(e) => selectFilter(e)}
