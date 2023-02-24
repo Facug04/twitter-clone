@@ -39,7 +39,7 @@ export default function NavProfile({
       )}
       <div
         onClick={() => setModal(true)}
-        className='max-[1265px]:hidden flex w-fit px-3 gap-5 py-3 items-center hover:bg-profileHover hover:rounded-full duration-100 ease-linear cursor-pointer'
+        className='max-[1265px]:hidden flex w-fit px-3 gap-1 py-3 items-center hover:bg-profileHover hover:rounded-full duration-100 ease-linear cursor-pointer'
       >
         <div className='flex gap-2 items-center'>
           <div className='w-10 h-10 items-center flex justify-center'>
