@@ -91,6 +91,14 @@ export default function App() {
                   actualUser={currentUser?.displayName}
                   image={currentUser?.photoURL}
                 />
+                <Username
+                  currentUser={currentUser}
+                  name={name}
+                  user={userExist}
+                  changeName={(newName: string, isReady: boolean) =>
+                    setName({ username: newName, isReady })
+                  }
+                />
               </div>
             }
           />
