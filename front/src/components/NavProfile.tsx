@@ -21,7 +21,7 @@ export default function NavProfile({
   const [modal, setModal] = useState(false)
   const submitName = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (name.username.length <= 15) {
+    if (name.username.length <= 15 && name.username.length >= 1) {
       changeName(name.username, true)
       setModal(false)
     }
@@ -76,10 +76,10 @@ export default function NavProfile({
                 onChange={(e) => {
                   changeName(e.target.value, false)
                 }}
-                className='bg-transparent font-chirp-bold placeholder:font-chirp-bold mb-1 placeholder:text-[15px] w-[130px] outline-none border-primary border-b-2'
+                className='bg-transparent text-pri font-chirp-bold placeholder:font-chirp-bold mb-1 placeholder:text-[15px] w-[130px] outline-none border-primary border-b-2'
                 placeholder='Escribe tu nombre'
               />
-              <button className='bg-primary px-2 rounded-lg font-chirp-bold'>
+              <button className='bg-primary text-pri px-2 rounded-lg font-chirp-bold'>
                 Enviar
               </button>
             </form>
