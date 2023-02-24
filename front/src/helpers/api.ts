@@ -8,7 +8,7 @@ export const getPosts = async (
   filters: Filter
 ): Promise<PaginatedPost> => {
   const response = await axios.get(
-    `http://localhost:3001/post?page=${page}&order=${filters.order}&filter=${filters.filter}`
+    `https://post-app-h399.onrender.com/post?page=${page}&order=${filters.order}&filter=${filters.filter}`
   )
 
   const post = response.data
@@ -17,7 +17,9 @@ export const getPosts = async (
 }
 
 export const getComment = async (id: string | undefined): Promise<Post> => {
-  const response = await axios.get(`http://localhost:3001/post/${id}`)
+  const response = await axios.get(
+    `https://post-app-h399.onrender.com/post/${id}`
+  )
 
   const post = response.data
 
@@ -25,7 +27,7 @@ export const getComment = async (id: string | undefined): Promise<Post> => {
 }
 
 export const post = async (data: FieldValues): Promise<PaginatedPost> => {
-  const post = await axios.post(`http://localhost:3001/post`, {
+  const post = await axios.post(`https://post-app-h399.onrender.com/post`, {
     post: data,
   })
 
@@ -33,7 +35,7 @@ export const post = async (data: FieldValues): Promise<PaginatedPost> => {
 }
 
 export const postLike = async (id: string, idUser: string) => {
-  await axios.post(`http://localhost:3001/post/like`, {
+  await axios.post(`https://post-app-h399.onrender.com/post/like`, {
     id,
     idUser,
   })
@@ -45,7 +47,7 @@ export const postComment = async (
   username: string | undefined | null,
   comment: string
 ) => {
-  await axios.post(`http://localhost:3001/post/comment`, {
+  await axios.post(`https://post-app-h399.onrender.com/post/comment`, {
     id,
     image,
     username,
@@ -54,7 +56,7 @@ export const postComment = async (
 }
 
 export const deleteComment = async (id: string, idComment: string) => {
-  await axios.post(`http://localhost:3001/post/delete`, {
+  await axios.post(`https://post-app-h399.onrender.com/post/delete`, {
     id,
     idComment,
   })
