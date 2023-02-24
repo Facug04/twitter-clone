@@ -13,6 +13,7 @@ import Emoji from './icons/Emoji'
 import Program from './icons/Program'
 import Ubication from './icons/Ubication'
 import Twitter from './icons/Twitter'
+import SesionMobile from './SesionMobile'
 
 type Props = {
   user: boolean | undefined
