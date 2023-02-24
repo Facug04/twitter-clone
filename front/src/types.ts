@@ -6,6 +6,7 @@ export type Post = {
   likes: string[]
   comments: Comment[]
   createdAt: Date
+  commentImage?: string
 }
 
 export type Comment = {
@@ -13,6 +14,7 @@ export type Comment = {
   comment: string
   image: string
   idComment: string
+  createdAt: Date
 }
 
 export type PaginatedPost = {

@@ -6,8 +6,8 @@ import Trend from './Trend'
 
 export default function Trending() {
   return (
-    <div>
-      <div className='sticky top-0 z-50 py-1 bg-black mb-[14px]'>
+    <div className='max-[1265px]:w-[350px] max-[1078px]:w-[290px]'>
+      <div className='sticky top-0 z-30 py-1 bg-black mb-[14px]'>
         <div className='flex gap-5 items-center bg-[#202327] py-[10px] px-4 rounded-3xl'>
           <Search />
           <p className='text-base text-[#71767b]'>Buscar en twitter</p>

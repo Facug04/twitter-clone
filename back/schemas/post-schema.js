@@ -8,6 +8,7 @@ const postSchema = mongoose.Schema(
     description: String,
     likes: Array,
     comments: Array,
+    commentImage: String,
   },
   { timestamps: true }
 )

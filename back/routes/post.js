@@ -66,10 +66,17 @@ postRouter.post('/comment', async (req, res) => {
 
   const idComment = uuidv4()
 
+  const createdAt = new Date()
+
   postModel
     .findOneAndUpdate(
       { _id: id },
-      { comments: [...comments, { idComment, username, comment, image }] }
+      {
+        comments: [
+          ...comments,
+          { idComment, username, comment, image, createdAt },
+        ],
+      }
     )
     .then((response) => res.json(response))
     .catch((err) => res.status(404).json({ error: err }))

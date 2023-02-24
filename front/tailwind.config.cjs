@@ -22,9 +22,17 @@ module.exports = {
         twittHover: 'rgba(255, 255, 255, 0.03)',
         profileHover: 'rgba(231, 233, 234, 0.1)',
         likeHover: 'rgba(249, 24, 128, 0.1)',
+        imageHover: 'rgba(29, 155, 240, 0.1)',
       },
       flex: {
         growWidth: '1 0 0%',
+      },
+      boxShadow: {
+        profile:
+          'rgba(255, 255, 255, 0.2) 0px 0px 15px, rgba(255, 255, 255, 0.15) 0px 0px 3px 1px',
+      },
+      dropShadow: {
+        arrow: 'rgb(51, 54, 57) 1px -1px 1px',
       },
     },
   },

@@ -7,6 +7,9 @@ import Posts from './components/Posts'
 import AddPost from './components/AddPost'
 import { auth } from './helpers/firebase'
 import Trending from './components/Trending'
+import Comments from './components/Comments'
+import ScrollToTop from './components/ScrollToTop'
+import SesionMobile from './components/SesionMobile'
 
 export default function App() {
   const [userExist, setUserExist] = useState<undefined | boolean>(undefined)
@@ -38,24 +41,25 @@ export default function App() {
   }
 
   return (
-    <div className='text-white'>
-      <Routes>
-        {/* <Route path='/' element={<Games />} /> */}
-        <Route
-          path='/'
-          element={
-            <div className='flex max-w-[1220px] mx-auto'>
-              <div className='w-[250px]'>
-                <Nav
-                  name={name}
-                  changeName={(newName: string, isReady: boolean) =>
-                    setName({ username: newName, isReady })
-                  }
-                  user={userExist}
-                  currentUser={currentUser}
-                />
-              </div>
-              <div className='w-[605px]'>
+    <div className='flex min-[1266px]:w-[1220px] min-[1266px]:mx-auto max-[1265px]:justify-center w-full max-[695px]:justify-start max-[505px]:flex-col'>
+      <ScrollToTop />
+      <div className='min-[1266px]:w-[250px] max-[1265px]:w-[88px]  max-[500px]:w-full max-[1035px]:w-[50px] max-[600px]:w-[60px] max-[985px]:w-[88px] max-[1265px]:flex max-[1265px]:justify-end max-[1035px]:justify-center'>
+        <Nav
+          name={name}
+          changeName={(newName: string, isReady: boolean) =>
+            setName({ username: newName, isReady })
+          }
+          user={userExist}
+          currentUser={currentUser}
+        />
+      </div>
+      <div className='min-[1035px]:w-[990px] flex max-[695px]:flex-1'>
+        <Routes>
+          {/* <Route path='/' element={<Games />} /> */}
+          <Route
+            path='/'
+            element={
+              <div className='max-[695px]:w-full min-[1266px]:w-[605px] max-[1265px]:w-[598px]'>
                 <AddPost
                   name={name}
                   user={userExist}
@@ -68,15 +72,28 @@ export default function App() {
                   username={currentUser?.displayName}
                 />
               </div>
-              <div className='flex-growWidth pl-8 h-fit sticky top-0'>
-                <Trending />
+            }
+          />
+          <Route
+            path=':name/status/:id'
+            element={
+              <div className='max-[695px]:w-full min-[1266px]:w-[605px] max-[1265px]:w-[598px]'>
+                <Comments
+                  idUser={currentUser?.uid}
+                  actualUser={currentUser?.displayName}
+                  image={currentUser?.photoURL}
+                />
               </div>
-            </div>
-          }
-        />
-        {/* <Route path='/game/:id' element={<Detail />} /> */}
-        {/* <Route path="*" component={NotFound} /> */}
-      </Routes>
+            }
+          />
+          {/* <Route path='/game/:id' element={<Detail />} /> */}
+          {/* <Route path="*" component={NotFound} /> */}
+        </Routes>
+        <div className='min-[1077px]:flex-growWidth pl-8 h-fit sticky top-0 max-[1078px]:pl-5 max-[985px]:hidden'>
+          <Trending />
+        </div>
+      </div>
+      {!userExist && <SesionMobile />}
     </div>
   )
 }

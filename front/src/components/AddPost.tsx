@@ -2,6 +2,7 @@ import { User } from 'firebase/auth'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
+import axios from 'axios'
 
 import { post } from '../helpers/api'
 import Loader from './icons/Loader'
@@ -11,6 +12,7 @@ import Survey from './icons/Survey'
 import Emoji from './icons/Emoji'
 import Program from './icons/Program'
 import Ubication from './icons/Ubication'
+import Twitter from './icons/Twitter'
 
 type Props = {
   user: boolean | undefined
@@ -19,7 +21,7 @@ type Props = {
 }
 
 export default function AddPost({ user, currentUser, name }: Props) {
-  const [addRow, setAddRow] = useState(0)
+  const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const {
     register,
     formState: { errors },
@@ -45,6 +47,7 @@ export default function AddPost({ user, currentUser, name }: Props) {
         ...data,
         image: currentUser?.photoURL,
         username: currentUser?.displayName,
+        commentImage: uploadImage(),
       }
       mutate(newPost, {
         onSuccess: () => {
@@ -55,6 +58,7 @@ export default function AddPost({ user, currentUser, name }: Props) {
       const newPost = {
         ...data,
         username: name.username,
+        commentImage: uploadImage(),
       }
       mutate(newPost, {
         onSuccess: () => {
@@ -66,36 +70,44 @@ export default function AddPost({ user, currentUser, name }: Props) {
 
   if (user === undefined) return <div></div>
 
-  // const uploadImage = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-  //   const formData = new FormData()
-  //   if (target.files?.length) {
-  //     console.log(typeof target.files[0])
-  //     formData.append('file', target.files[0])
-  //     formData.append('upload_preset', 'fkdsburx')
-  //     console.log(formData)
-  //     axios
-  //       .post(
-  //         'https://api.cloudinary.com/v1_1/dlkdvbani/image/upload?public_id=facu',
-  //         formData
-  //       )
-  //       .then((res) => console.log(res))
-  //       .catch((err) => console.log(err))
-  //   }
-  // }
-  console.log(addRow)
+  const uploadImage = () => {
+    const id = crypto.randomUUID()
+    if (selectedImage) {
+      const formData = new FormData()
+
+      formData.append('file', selectedImage)
+      formData.append('upload_preset', 'fkdsburx')
+      console.log(formData)
+      axios
+        .post(
+          `https://api.cloudinary.com/v1_1/dlkdvbani/image/upload?public_id=${id}`,
+          formData
+        )
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
+      return `https://res.cloudinary.com/dlkdvbani/image/upload/v1676557124/${id}.png`
+    } else ''
+  }
+
   return (
     <div className='pt-3 border-[#2f3336] border-x-[1.5px]'>
       <div className='px-4'>
-        <h2 className='text-normal font-chirp-bold text-pri mb-7'>Inicio</h2>
+        <h2 className='text-normal font-chirp-bold text-pri mb-7 max-[500px]:hidden'>
+          Inicio
+        </h2>
+        <div className='fill-primary flex justify-center mb-6'>
+          <Twitter size={25} />
+        </div>
         <div className='text-base flex justify-around'>
           <div>
-            <h3 className='mb-2 text-center font-chirp-bold '>Para ti</h3>
+            <h3 className='mb-2 text-center font-chirp-bold text-pri'>
+              Para ti
+            </h3>
             <div className='h-1 rounded bg-primary w-14' />
           </div>
           <div>
             <h3 className='text-secondary'>Siguiendo</h3>
           </div>
-          {/* <input type='file' onChange={(e) => uploadImage(e)} /> */}
         </div>
       </div>
       <div className='border-[#2f3336] pb-2 pt-5 px-4 border-y-[1.5px]'>
@@ -129,22 +141,61 @@ export default function AddPost({ user, currentUser, name }: Props) {
               maxLength: 300,
             })}
           ></textarea>
+          {selectedImage && (
+            <div className='mb-2 relative'>
+              <span
+                onClick={() => setSelectedImage(null)}
+                className='absolute cursor-pointer leading-5 text-[17px] top-[5px] left-[5px] backdrop-blur-sm py-[5px] px-[10.5px] bg-[#0f1419bf] rounded-[50%]'
+              >
+                &times;
+              </span>
+              <img
+                className='rounded-2xl w-full'
+                src={URL.createObjectURL(selectedImage)}
+                alt='upload image'
+              />
+            </div>
+          )}
           {errors.description?.type === 'required' && (
             <p className='absolute text-xs text-red-700'>Obligatorio</p>
           )}
           {errors.description?.type === 'maxLength' && (
             <p className='absolute text-xs text-red-700'>
-              Maximo 3000 caracteres
+              Maximo 300 caracteres
             </p>
           )}
           <div className='flex justify-between items-center'>
-            <div className='flex gap-4'>
-              <Images />
-              <Gift />
-              <Survey />
-              <Emoji />
-              <Program />
-              <Ubication />
+            <div className='flex gap-1'>
+              <div className='hover:bg-imageHover rounded-[50%] w-[34px] h-[34px] flex items-center justify-center'>
+                <label htmlFor='submit' className='cursor-pointer'>
+                  <Images />
+                </label>
+                <input
+                  className='hidden'
+                  id='submit'
+                  type='file'
+                  onChange={(e) => {
+                    if (e.target.files?.length) {
+                      setSelectedImage(e.target.files[0])
+                    }
+                  }}
+                />
+              </div>
+              <div className='flex items-center justify-center w-[34px] h-[34px]'>
+                <Gift />
+              </div>
+              <div className='flex items-center justify-center w-[34px] h-[34px]'>
+                <Survey />
+              </div>
+              <div className='flex items-center justify-center w-[34px] h-[34px]'>
+                <Emoji />
+              </div>
+              <div className='flex items-center justify-center w-[34px] h-[34px]'>
+                <Program />
+              </div>
+              <div className='flex items-center justify-center w-[34px] h-[34px]'>
+                <Ubication />
+              </div>
             </div>
             <div>
               <button className=' bg-[#0e4e78] text-base font-chirp-bold py-[6px] px-3 text-[#808080] rounded-[18px] w-[95px] hover: duration-200 ease-linear'>

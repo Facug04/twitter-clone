@@ -1,19 +1,17 @@
 import { GoogleAuthProvider, User } from 'firebase/auth'
 import { Link } from 'react-router-dom'
 
-import { singInGoogle, logOut } from '../helpers/firebase'
 import Explore from './icons/Explore'
 import Home from './icons/Home'
 import Lists from './icons/Lists'
-import Loader from './icons/Loader'
 import Messages from './icons/Messages'
-import More from './icons/More'
 import Notifications from './icons/Notifications'
 import Options from './icons/Options'
 import Profile from './icons/Profile'
 import Saved from './icons/Saved'
+import Twittear from './icons/Twittear'
 import Twitter from './icons/Twitter'
-import img from '/user-icon.png'
+import NavProfile from './NavProfile'
 
 type Props = {
   user: boolean | undefined
@@ -23,63 +21,53 @@ type Props = {
 }
 
 export default function Nav({ user, currentUser, name, changeName }: Props) {
-  const handleClick = async () => {
-    const googleProvider = new GoogleAuthProvider()
-    await singInGoogle(googleProvider)
-  }
-
-  const handleSesion = async () => {
-    await logOut()
-    window.location.reload()
-  }
-
-  const submitName = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    changeName(name.username, true)
-  }
+  console.log(user)
 
   return (
-    <header className='fixed w-[250px] flex flex-col justify-between h-full py-3 overflow-y-auto'>
-      <nav className='text-[#e7e9ea] w-[215px] text-normal flex flex-col gap-5'>
-        <div>
+    <header className='fixed max-[505px]:bottom-0 max-[500px]:border-[#2f3336] max-[500px]:border-t-[1.5px] max-[500px]:w-full  min-[1266px]:w-[250px] flex flex-col justify-between h-full max-[505px]:h-[50px] py-3 overflow-y-auto z-[100]'>
+      <nav className='text-[#e7e9ea] w-[215px] max-[500px]:w-full max-[500px]:justify-evenly max-[505px]:flex-row text-normal flex flex-col gap-5 max-[1265px]:w-[76px] max-[600px]:w-[60px] max-[1035px]:w-[50px] max-[985px]:w-[88px] max-[1265px]:items-center max-[1265px]:gap-8'>
+        <div className='max-[500px]:hidden fill-[#d6d9db]'>
           <Link to='/'>
             <Twitter />
           </Link>
         </div>
         <div className='flex gap-5 items-center'>
           <Home />
-          <h2 className='font-chirp-bold '>Inicio</h2>
+          <h2 className='font-chirp-bold max-[1265px]:hidden'>Inicio</h2>
         </div>
-        <div className='flex gap-5 items-center'>
+        <div className='flex gap-5 items-center max-[500px]:hidden'>
           <Explore />
-          <h2>Explorar</h2>
+          <h2 className='max-[1265px]:hidden'>Explorar</h2>
         </div>
         <div className='flex gap-5 items-center'>
           <Notifications />
-          <h2>Notificaciones</h2>
+          <h2 className='max-[1265px]:hidden'>Notificaciones</h2>
         </div>
         <div className='flex gap-5 items-center'>
           <Messages />
-          <h2>Mensajes</h2>
+          <h2 className='max-[1265px]:hidden'>Mensajes</h2>
         </div>
-        <div className='flex gap-5 items-center'>
+        <div className='flex gap-5 items-center max-[500px]:hidden'>
           <Saved />
-          <h2>Guardados</h2>
+          <h2 className='max-[1265px]:hidden'>Guardados</h2>
         </div>
-        <div className='flex gap-5 items-center'>
+        <div className='flex gap-5 items-center max-[500px]:hidden'>
           <Lists />
-          <h2>Listas</h2>
+          <h2 className='max-[1265px]:hidden'>Listas</h2>
         </div>
         <div className='flex gap-5 items-center'>
           <Profile />
-          <h2>Perfil</h2>
+          <h2 className='max-[1265px]:hidden'>Perfil</h2>
         </div>
-        <div className='flex gap-5 items-center'>
+        <div className='flex gap-5 items-center max-[500px]:hidden'>
           <Options />
-          <h2>Más opciones</h2>
+          <h2 className='max-[1265px]:hidden'>Más opciones</h2>
         </div>
-        <div>
-          <button className='bg-primary text-lg font-chirp-bold py-3 px-3 text-pri rounded-3xl w-full hover: duration-200 ease-linear'>
+        <div className='max-[1265px]:w-[50px] max-[500px]:hidden max-[1265px]:h-[50px] max-[1265px]:flex max-[1265px]:items-center max-[1265px]:justify-center max-[1265px]:bg-primary max-[1265px]:rounded-[50%]'>
+          <div className='min-[1266px]:hidden'>
+            <Twittear />
+          </div>
+          <button className='bg-primary text-lg font-chirp-bold py-3 px-3 text-pri rounded-3xl w-full hover: duration-200 ease-linear max-[1265px]:hidden'>
             Twittear
           </button>
         </div>
@@ -127,60 +115,13 @@ export default function Nav({ user, currentUser, name, changeName }: Props) {
           </div>
         )} */}
       </nav>
-      <div className='flex w-fit px-3 gap-5 py-3 items-center hover:bg-profileHover hover:rounded-full duration-100 ease-linear'>
-        <div className='flex gap-2 items-center'>
-          <div className='w-10 h-10 items-center flex justify-center'>
-            {currentUser?.photoURL ? (
-              <img
-                className='w-10 h-10 rounded-[50%]'
-                src={currentUser?.photoURL}
-              />
-            ) : (
-              <img className='w-8 h-8' src={img} />
-            )}
-          </div>
-          {currentUser ? (
-            <div>
-              <h3 className='font-chirp-bold text-pri text-[15px]'>
-                Facundo Gonzalez
-              </h3>
-              <h4 className='text-secondary text-[15px]'>@Facug03</h4>
-            </div>
-          ) : name.isReady ? (
-            <div>
-              <h3 className='font-chirp-bold text-pri text-[15px]'>
-                {name.username}
-              </h3>
-              <h4 className='text-secondary text-[15px]'>@{name.username}</h4>
-            </div>
-          ) : (
-            <form onSubmit={submitName}>
-              <input
-                value={name.username}
-                name='username'
-                onChange={(e) => {
-                  changeName(e.target.value, false)
-                }}
-                className='bg-transparent font-chirp-bold placeholder:font-chirp-bold mb-1 placeholder:text-[15px] w-[130px] outline-none border-primary border-b-2'
-                placeholder='Escribe tu nombre'
-              />
-              <button className='bg-primary px-2 rounded-lg font-chirp-bold'>
-                Enviar
-              </button>
-            </form>
-          )}
-        </div>
-        <div
-          onClick={() => {
-            if (!currentUser) {
-              changeName(name.username, false)
-            }
-          }}
-          className={`${!currentUser && 'cursor-pointer'}`}
-        >
-          <More />
-        </div>
-      </div>
+
+      <NavProfile
+        currentUser={currentUser}
+        name={name}
+        user={user}
+        changeName={changeName}
+      />
     </header>
   )
 }

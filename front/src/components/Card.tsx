@@ -6,7 +6,6 @@ import { es } from 'date-fns/locale'
 import type { Post, Comment } from '../types'
 import { postLike } from '../helpers/api'
 import img from '/user-icon.png'
-import Comments from './Comments'
 import Like from './icons/Like'
 import CommentIcon from './icons/CommentIcon'
 import Retwitt from './icons/Retwitt'
@@ -15,6 +14,11 @@ import Share from './icons/Share'
 import More from './icons/More'
 import Verified from './icons/Verified'
 import RedLike from './icons/RedLike'
+import LikeModal from './LikeModal'
+import CommentModal from './CommentModal'
+import { Link } from 'react-router-dom'
+import AddCommentModal from './AddCommentModal'
+import { timeAgoFormat } from '../helpers/timeAgo'
 
 type Props = Post & {
   idUser: string | undefined
@@ -31,16 +35,16 @@ export default function Card({
   _id,
   idUser,
   actualUser,
+  commentImage,
 }: Props) {
-  const timeAgo = formatDistance(new Date(createdAt), new Date(), {
-    addSuffix: true,
-    locale: es,
-  })
   const [like, setLike] = useState(false)
   const [addLike, setAddLike] = useState(likes.length)
   const [showComments, setShowComments] = useState(false)
   const [addPost, setAddPost] = useState<Comment[]>([])
   const [initialComments, setInitialComments] = useState<Comment[]>(comments)
+  const [likeModal, setLikeModal] = useState(false)
+  const [commentModal, setCommentModal] = useState(false)
+  const [addCommentModal, setAddCommentModal] = useState(false)
 
   useEffect(() => {
     if (likes.some((li) => li === idUser)) {
@@ -48,7 +52,12 @@ export default function Card({
     } else setLike(false)
   }, [idUser])
 
-  const summitLike = async () => {
+  const timeAgo = timeAgoFormat(createdAt)
+
+  const summitLike = async (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    e.preventDefault()
     if (idUser) {
       setLike(!like)
 
@@ -57,11 +66,11 @@ export default function Card({
       setAddLike(sumOrRestLike)
 
       await postLike(_id, idUser)
-    }
+    } else setLikeModal(true)
   }
 
   return (
-    <>
+    <Link to={`${username.split(' ').join('')}/status/${_id}`}>
       <div className='w-full border-[#2f3336] px-4  py-2 border-b-[1.5px] flex gap-3 hover:bg-twittHover duration-200 ease-in-out'>
         <div className='w-12 h-12 items-center flex justify-center'>
           {image ? (
@@ -74,7 +83,7 @@ export default function Card({
           <div className='flex items-center justify-between text-base'>
             <div className='flex gap-2'>
               <div className='flex gap-1 items-center'>
-                <p className='font-chirp-bold'>{username}</p>
+                <p className='font-chirp-bold text-pri'>{username}</p>
                 {image && <Verified />}
               </div>
               <p className='text-third'>· {timeAgo}</p>
@@ -84,27 +93,47 @@ export default function Card({
             </div>
           </div>
           <div>
-            <p className='mb-2 text-[#d5d7d8] text-[17px]'>{description}</p>
+            <p className='mb-2 text-[#d5d7d8] text-[17px] max-[695px]:text-base'>
+              {description}
+            </p>
+            {commentImage && (
+              <img
+                className='w-full border-[#2F3336] border rounded-2xl mb-2'
+                src={commentImage}
+                alt={image}
+              />
+            )}
             <div className='flex justify-between'>
               <div className='flex gap-8'>
-                {/* <svg
-                onClick={summitLike}
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='#ffffff'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                className={`w-6 cursor-pointer ${like && 'fill-red-700'}`}
-              >
-                <path d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'></path>
-              </svg> */}
-                <div className='flex gap-3 items-center'>
-                  <CommentIcon />
-                  <p className='text-third text-[13px]'>
+                <div
+                  onClick={(e) => {
+                    e.preventDefault()
+                    if (!idUser) setCommentModal(true)
+                    else setAddCommentModal(true)
+                  }}
+                  className='flex gap-3 items-center group fill-[#71767b] hover:fill-primary duration-200 ease-in cursor-pointer'
+                >
+                  <div className='w-[34.75px] h-[34.75px] flex items-center justify-center group-hover:bg-imageHover group-hover:fill-primary rounded-[50%] duration-200 ease-in'>
+                    <CommentIcon />
+                  </div>
+                  <p className='text-third text-[13px] group-hover:text-primary duration-200 ease-in'>
                     {initialComments.length + addPost.length}
                   </p>
                 </div>
+                {commentModal && (
+                  <CommentModal changeModal={() => setCommentModal(false)} />
+                )}
+                {addCommentModal && (
+                  <AddCommentModal
+                    id={_id}
+                    image={image}
+                    actualUser={actualUser}
+                    username={username}
+                    description={description}
+                    timeAgo={timeAgo}
+                    changeModal={() => setAddCommentModal(false)}
+                  />
+                )}
                 <div className='flex gap-1 items-center'>
                   <div className='w-[34.75px] h-[34.75px] flex items-center justify-center'>
                     <Retwitt />
@@ -112,20 +141,23 @@ export default function Card({
                   <p className='text-third text-[13px]'>0</p>
                 </div>
                 <div
-                  onClick={summitLike}
+                  onClick={(e) => summitLike(e)}
                   className='flex gap-1 group items-center cursor-pointer fill-[#71767b] duration-200 ease-in'
                 >
-                  <div className='w-[34.75px] h-[34.75px] flex items-center justify-center group-hover:bg-likeHover group-hover:fill-[#f91880] group-hover:rounded-[50%]'>
+                  <div className='w-[34.75px] h-[34.75px] flex items-center justify-center group-hover:bg-likeHover group-hover:fill-[#f91880] rounded-[50%] duration-200 ease-in'>
                     {like ? <RedLike /> : <Like />}
                   </div>
                   <p
-                    className={`text-third text-[13px] group-hover:text-[#f91880] ${
+                    className={`text-third text-[13px] group-hover:text-[#f91880] duration-200 ease-in ${
                       like && 'text-[#f91880]'
                     }`}
                   >
                     {addLike}
                   </p>
                 </div>
+                {likeModal && (
+                  <LikeModal changeModal={() => setLikeModal(false)} />
+                )}
                 <div className='flex gap-1 items-center'>
                   <div className='w-[34.75px] h-[34.75px] flex items-center justify-center'>
                     <See />
@@ -136,43 +168,23 @@ export default function Card({
                   <Share />
                 </div>
                 {/* <span
-                onClick={() => setShowComments(!showComments)}
-                className='text-sm relative pl-4 cursor-pointer'
-              >
-                <div
-                  className={`absolute left-[3px] text-base ${
-                    showComments ? 'rotate-90 top-[-1.7px]' : 'top-[-2.5px]'
-                  }`}
+                  onClick={() => setShowComments(!showComments)}
+                  className='text-sm relative pl-4 cursor-pointer'
                 >
-                  &gt;
-                </div>{' '}
-                Comentarios {initialComments.length + addPost.length}
-              </span> */}
+                  <div
+                    className={`absolute left-[3px] text-base ${
+                      showComments ? 'rotate-90 top-[-1.7px]' : 'top-[-2.5px]'
+                    }`}
+                  >
+                    &gt;
+                  </div>{' '}
+                  Comentarios {initialComments.length + addPost.length}
+                </span> */}
               </div>
             </div>
           </div>
         </div>
       </div>
-      {showComments && (
-        <Comments
-          id={_id}
-          username={username}
-          comments={comments}
-          actualUser={actualUser}
-          image={image}
-          addPost={addPost}
-          changePost={(comment: Comment) => {
-            setAddPost((befPost) => befPost.concat(comment))
-          }}
-          initialComments={initialComments}
-          changeInitialComments={(idComment: string) => {
-            const removedComment = initialComments.filter(
-              (comment) => comment.idComment !== idComment
-            )
-            setInitialComments(removedComment)
-          }}
-        />
-      )}
-    </>
+    </Link>
   )
 }
