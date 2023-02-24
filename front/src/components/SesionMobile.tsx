@@ -1,28 +1,78 @@
-import { GoogleAuthProvider } from 'firebase/auth'
+import { User, GoogleAuthProvider } from 'firebase/auth'
 
-import { singInGoogle } from '../helpers/firebase'
+import { singInGoogle, logOut } from '../helpers/firebase'
+import Arrow from './icons/Arrow'
 
-export default function SesionMobile() {
+type Props = {
+  changeModal: () => void
+  manageName: () => void
+  user: boolean | undefined
+  currentUser: User | null
+}
+
+export default function SesionMobile({
+  changeModal,
+  manageName,
+  user,
+  currentUser,
+}: Props) {
   const handleClick = async () => {
     const googleProvider = new GoogleAuthProvider()
     await singInGoogle(googleProvider)
+    changeModal()
+  }
+
+  const handleSesion = async () => {
+    await logOut()
+    changeModal()
+    window.location.reload()
+  }
+
+  const editName = () => {
+    manageName()
+    changeModal()
   }
 
   return (
-    <div className='h-[65px] min-[506px]:hidden bg-black border-[#2f3336] border-t-[1.5px] fixed bottom-0 left-0 w-full z-[200] flex items-center'>
-      <div className='text-[15px] font-chirp-bold px-4 grid grid-cols-2 w-full gap-2'>
-        <button
-          onClick={handleClick}
-          className='text-primary py-1.5  border-[#ffffff59] border rounded-3xl'
-        >
-          Iniciar sesión
-        </button>
-        <button
-          onClick={handleClick}
-          className='text-white bg-primary py-1.5 rounded-3xl'
-        >
-          Regístrate
-        </button>
+    <div onClick={changeModal} className='absolute top-[-140px] left-[-95px]'>
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className='w-[250px] relative bg-black rounded-2xl py-4 shadow-profile text-[15px] text-pri font-chirp-heavy'
+      >
+        <div className='flex items-center justify-center absolute right-[-1px] top-[-3px]'>
+          <button
+            onClick={changeModal}
+            className='py-[3px] px-[10px] text-xl rounded-[50%] hover:bg-[#eff3f41a] duration-200 ease-linear text-[#EFF3F4]'
+          >
+            &times;
+          </button>
+        </div>
+        {user ? (
+          <div
+            onClick={handleSesion}
+            className='py-3 px-4 hover:bg-[#16181C] cursor-pointer duration-200 ease'
+          >
+            <p>Cerrar la sesión de @{currentUser?.displayName}</p>
+          </div>
+        ) : (
+          <>
+            <div
+              onClick={handleClick}
+              className='py-3 px-4 hover:bg-[#16181C] cursor-pointer duration-200 ease'
+            >
+              <p>Iniciar Sesión o Registrarse</p>
+            </div>
+            <div
+              onClick={editName}
+              className='py-3 px-4 hover:bg-[#16181C] cursor-pointer duration-200 ease'
+            >
+              <p>Editar nombre</p>
+            </div>
+          </>
+        )}
+      </div>
+      <div className='absolute bottom-[-11px] left-[150px]'>
+        <Arrow />
       </div>
     </div>
   )
