@@ -48,7 +48,7 @@ export default function AddCommentModal({
         e.preventDefault()
         changeModal()
       }}
-      className='w-screen h-screen fixed flex justify-center top-0 left-0 bg-[#5b708366] z-[150] cursor-default'
+      className='w-screen h-screen fixed flex justify-center top-0 left-0 bg-[#5b708366] z-[300] cursor-default'
     >
       <div
         onClick={(e) => {
