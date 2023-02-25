@@ -173,7 +173,6 @@ export default function AddPost({ user, currentUser, name }: Props) {
                         e.target.files?.length &&
                         e.target.files[0].type.includes('image')
                       ) {
-                        console.log(e.target.files)
                         setSelectedImage(e.target.files[0])
                         setIsDisabled(false)
                       }
