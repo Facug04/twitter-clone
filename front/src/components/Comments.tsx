@@ -191,7 +191,16 @@ Props) {
           </div>
         </div>
       </div>
-      <p className='px-4 text-pri text-lg'>{comment?.description}</p>
+      <p className='px-4 text-pri text-lg mb-2'>{comment?.description}</p>
+      <div className='px-4'>
+        {comment.commentImage && (
+          <img
+            className='w-full border-[#2F3336] border rounded-2xl mb-2'
+            src={comment.commentImage}
+            alt='image'
+          />
+        )}
+      </div>
       <div className='px-4 my-4'>
         <p className='text-base text-[#71767B]'>
           {hour} · {date} ·{' '}
