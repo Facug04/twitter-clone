@@ -188,10 +188,10 @@ export default function AddPost({ user, currentUser, name }: Props) {
                 <div className='flex items-center justify-center w-[34px] h-[34px]'>
                   <Emoji />
                 </div>
-                <div className='flex items-center justify-center w-[34px] h-[34px]'>
+                <div className='flex items-center justify-center w-[34px] h-[34px] max-[415px]:hidden'>
                   <Program />
                 </div>
-                <div className='flex items-center justify-center w-[34px] h-[34px]'>
+                <div className='flex items-center justify-center w-[34px] h-[34px] max-[415px]:hidden'>
                   <Ubication />
                 </div>
               </div>

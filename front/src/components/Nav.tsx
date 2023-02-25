@@ -22,7 +22,7 @@ type Props = {
 
 export default function Nav({ user, currentUser, name, changeName }: Props) {
   return (
-    <header className='fixed max-[505px]:bg-black max-[505px]:bottom-0 max-[505px]:border-[#2f3336] max-[505px]:border-t-[1.5px] max-[505px]:w-full  min-[1266px]:w-[250px] flex flex-col justify-between h-full max-[505px]:h-[50px] py-3 overflow-y-auto z-[100]'>
+    <header className='fixed max-[505px]:bg-black max-[505px]:bottom-0 max-[505px]:border-[#2f3336] max-[505px]:border-t-[1.5px] max-[505px]:w-full  min-[1266px]:w-[250px] flex flex-col justify-between h-full max-[505px]:h-[50px] py-3 min-[505px]:overflow-y-auto z-[100]'>
       <nav className='text-[#e7e9ea] w-[215px] max-[505px]:w-full max-[505px]:justify-evenly max-[505px]:flex-row text-normal flex flex-col gap-5 max-[1265px]:w-[76px] max-[600px]:w-[60px] max-[1035px]:w-[50px] max-[985px]:w-[88px] max-[1265px]:items-center max-[1265px]:gap-8'>
         <div className='max-[505px]:hidden fill-[#d6d9db]'>
           <Link to='/'>
