@@ -86,14 +86,14 @@ export default function AddPost({ user, currentUser, name }: Props) {
       formData.append('file', selectedImage)
       formData.append('upload_preset', 'fkdsburx')
       console.log(formData)
-      const { url } = await axios
+      const { secure_url } = await axios
         .post(
           `https://api.cloudinary.com/v1_1/dlkdvbani/image/upload?public_id=${id}`,
           formData
         )
         .then((res) => res.data)
         .catch((err) => console.log(err))
-      return url
+      return secure_url
     } else ''
   }
 
