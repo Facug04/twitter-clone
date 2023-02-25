@@ -20,7 +20,7 @@ export default function Trending() {
         <Trend type='Trabajo' trend='#BuscandoTrabajo' tweets='522 mil' />
         <Trend type='Desarrollo' trend='React y Express' tweets='102 mil' />
         <Trend type='Desarrollo' trend='MongoDB' tweets='47 mil' />
-        <Trend type='Desarrollo' trend='HechoConReact-Express' tweets='500' />
+        <Trend type='Desarrollo' trend='TypeScript' tweets='79 mil' />
         <Trend type='Personas' trend='Facundo Gonzalez' tweets='2' />
         <div className='h-[52px] hover:bg-twittHover px-4 duration-200 ease-in-out flex items-center'>
           <p className=' text-primary text-base'>Mostrar más</p>
