@@ -43,7 +43,7 @@ export default function AddPost({ user, currentUser, name }: Props) {
     },
   })
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     if (!name.isReady) setError(true)
     else {
       setError(false)
@@ -52,10 +52,11 @@ export default function AddPost({ user, currentUser, name }: Props) {
           ...data,
           image: currentUser?.photoURL,
           username: currentUser?.displayName,
-          commentImage: uploadImage(),
+          commentImage: await uploadImage(),
         }
         mutate(newPost, {
           onSuccess: () => {
+            setSelectedImage(null)
             reset()
           },
         })
@@ -63,10 +64,11 @@ export default function AddPost({ user, currentUser, name }: Props) {
         const newPost = {
           ...data,
           username: name.username,
-          commentImage: uploadImage(),
+          commentImage: await uploadImage(),
         }
         mutate(newPost, {
           onSuccess: () => {
+            setSelectedImage(null)
             reset()
           },
         })
@@ -76,7 +78,7 @@ export default function AddPost({ user, currentUser, name }: Props) {
 
   if (user === undefined) return <div></div>
 
-  const uploadImage = () => {
+  const uploadImage = async () => {
     const id = crypto.randomUUID()
     if (selectedImage) {
       const formData = new FormData()
@@ -84,17 +86,17 @@ export default function AddPost({ user, currentUser, name }: Props) {
       formData.append('file', selectedImage)
       formData.append('upload_preset', 'fkdsburx')
       console.log(formData)
-      axios
+      const { url } = await axios
         .post(
           `https://api.cloudinary.com/v1_1/dlkdvbani/image/upload?public_id=${id}`,
           formData
         )
-        .then((res) => console.log(res))
+        .then((res) => res.data)
         .catch((err) => console.log(err))
-      return `https://res.cloudinary.com/dlkdvbani/image/upload/v1676557124/${id}.png`
+      return url
     } else ''
   }
-  console.log({ isError })
+
   return (
     <>
       <div className='pt-3 border-[#2f3336] border-x-[1.5px]'>
@@ -118,28 +120,10 @@ export default function AddPost({ user, currentUser, name }: Props) {
           </div>
         </div>
         <div className='border-[#2f3336] pb-2 pt-5 px-4 border-y-[1.5px]'>
-          {/* <h2 className='mb-3'>¿Qué estas pensando?</h2> */}
           <form
             className='pl-[62px] break-words whitespace-pre-wrap'
             onSubmit={handleSubmit(onSubmit)}
           >
-            {/* {!user && (
-            <div className='relative w-full mb-6'>
-              <input
-                placeholder='Nombre'
-                className='px-2 py-1 outline-none text-black rounded'
-                type='text'
-                {...register('username', {
-                  required: true,
-                })}
-              ></input>
-              {errors.username?.type === 'required' && (
-                <p className='absolute bottom-[-17px] text-xs text-red-700'>
-                  Obligatorio
-                </p>
-              )}
-            </div>
-          )} */}
             <textarea
               placeholder='¿Qué está pasando?'
               className='outline-none w-full h-[52px] resize-none text-pri text-normal bg-black placeholder:text-normal placeholder:text-secondary'
@@ -154,8 +138,11 @@ export default function AddPost({ user, currentUser, name }: Props) {
             {selectedImage && (
               <div className='mb-2 relative'>
                 <span
-                  onClick={() => setSelectedImage(null)}
-                  className='absolute cursor-pointer leading-5 text-[17px] top-[5px] left-[5px] backdrop-blur-sm py-[5px] px-[10.5px] bg-[#0f1419bf] rounded-[50%]'
+                  onClick={() => {
+                    setSelectedImage(null)
+                    setIsDisabled(false)
+                  }}
+                  className='absolute text-white text-2xl cursor-pointer leading-5 text-[17px] top-[5px] left-[5px] backdrop-blur-sm py-2 px-[10.5px] bg-[#0f1419bf] rounded-[50%]'
                 >
                   &times;
                 </span>
@@ -182,8 +169,13 @@ export default function AddPost({ user, currentUser, name }: Props) {
                     id='submit'
                     type='file'
                     onChange={(e) => {
-                      if (e.target.files?.length) {
+                      if (
+                        e.target.files?.length &&
+                        e.target.files[0].type.includes('image')
+                      ) {
+                        console.log(e.target.files)
                         setSelectedImage(e.target.files[0])
+                        setIsDisabled(false)
                       }
                     }}
                   />
