@@ -103,8 +103,8 @@ export default function Card({
                 alt={image}
               />
             )}
-            <div className='flex justify-between'>
-              <div className='flex gap-8'>
+            <div>
+              <div className='flex max-[600px]:justify-between min-[600px]:gap-12'>
                 <div
                   onClick={(e) => {
                     e.preventDefault()
@@ -164,7 +164,7 @@ export default function Card({
                     changeModal={() => setLikeModal(false)}
                   />
                 )}
-                <div className='flex gap-1 items-center'>
+                <div className='flex gap-1 items-center max-[425px]:hidden'>
                   <div className='w-[34.75px] h-[34.75px] flex items-center justify-center'>
                     <See />
                   </div>
