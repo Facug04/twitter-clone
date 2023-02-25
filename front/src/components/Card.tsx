@@ -83,17 +83,19 @@ export default function Card({
           <div className='flex items-center justify-between text-base'>
             <div className='flex gap-2'>
               <div className='flex gap-1 items-center'>
-                <p className='font-chirp-bold text-pri'>{username}</p>
+                <p className='font-chirp-bold max-[695px]:text-[15px] text-pri'>
+                  {username}
+                </p>
                 {image && <Verified />}
               </div>
-              <p className='text-third'>· {timeAgo}</p>
+              <p className='text-third max-[695px]:text-[15px]'>· {timeAgo}</p>
             </div>
             <div>
               <More />
             </div>
           </div>
           <div>
-            <p className='mb-2 text-[#d5d7d8] text-[17px] max-[695px]:text-base'>
+            <p className='mb-2 text-[#d5d7d8] text-[17px] max-[695px]:text-[15px]'>
               {description}
             </p>
             {commentImage && (
@@ -116,7 +118,7 @@ export default function Card({
                   <div className='w-[34.75px] h-[34.75px] flex items-center justify-center group-hover:bg-imageHover group-hover:fill-primary rounded-[50%] duration-200 ease-in'>
                     <CommentIcon />
                   </div>
-                  <p className='text-third text-[13px] group-hover:text-primary duration-200 ease-in'>
+                  <p className='text-third text-xs min-[695px]:text-[13px] group-hover:text-primary duration-200 ease-in'>
                     {initialComments.length + addPost.length}
                   </p>
                 </div>
@@ -141,7 +143,9 @@ export default function Card({
                   <div className='w-[34.75px] h-[34.75px] flex items-center justify-center'>
                     <Retwitt />
                   </div>
-                  <p className='text-third text-[13px]'>0</p>
+                  <p className='text-third text-xs min-[695px]:text-[13px]'>
+                    0
+                  </p>
                 </div>
                 <div
                   onClick={(e) => summitLike(e)}
@@ -151,7 +155,7 @@ export default function Card({
                     {like ? <RedLike /> : <Like />}
                   </div>
                   <p
-                    className={`text-third text-[13px] group-hover:text-[#f91880] duration-200 ease-in ${
+                    className={`text-third text-xs min-[695px]:text-[13px] group-hover:text-[#f91880] duration-200 ease-in ${
                       like && 'text-[#f91880]'
                     }`}
                   >
@@ -168,7 +172,9 @@ export default function Card({
                   <div className='w-[34.75px] h-[34.75px] flex items-center justify-center'>
                     <See />
                   </div>
-                  <p className='text-third text-[13px]'>0</p>
+                  <p className='text-third text-xs min-[695px]:text-[13px]'>
+                    0
+                  </p>
                 </div>
                 <div className='w-[34.75px] h-[34.75px] flex items-center justify-center'>
                   <Share />

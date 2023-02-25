@@ -181,17 +181,21 @@ Props) {
         <div className='flex items-center justify-between text-base flex-1 mb-2'>
           <div>
             <div className='flex gap-1 items-center'>
-              <p className='font-chirp-bold text-pri'>{comment?.username}</p>
+              <p className='font-chirp-bold text-pri max-[695px]:text-[15px]'>
+                {comment?.username}
+              </p>
               {comment?.image && <Verified />}
             </div>
-            <p className='text-[15px] text-[#71767B]'>@{comment?.username}</p>
+            <p className='text-[14px] min-[695px]:text-[15px] text-[#71767B]'>
+              @{comment?.username}
+            </p>
           </div>
           <div>
             <More />
           </div>
         </div>
       </div>
-      <p className='px-4 text-pri text-lg mb-2'>{comment?.description}</p>
+      <p className='px-4 text-pri text-[17px] mb-2'>{comment?.description}</p>
       <div className='px-4'>
         {comment.commentImage && (
           <img
@@ -202,7 +206,7 @@ Props) {
         )}
       </div>
       <div className='px-4 my-4'>
-        <p className='text-base text-[#71767B]'>
+        <p className='text-[15px] min-[695px]:text-base text-[#71767B]'>
           {hour} · {date} ·{' '}
           <span className='text-pri text-[15px] font-chirp-bold'>
             {Math.floor(Math.random() * 501)} mil
@@ -214,20 +218,27 @@ Props) {
         <div className='py-4 border-[#2f3336] border-y-[1.5px]'>
           <div className='px-1 flex gap-4 '>
             <div>
-              <p className=' text-[#71767B]'>
-                <span className='text-pri  font-chirp-bold'>0</span> Retweets
+              <p className=' text-[#71767B] max-[695px]:text-[14px] '>
+                <span className='text-pri max-[695px]:text-[14px]  font-chirp-bold'>
+                  0
+                </span>{' '}
+                Retweets
               </p>
             </div>
             <div>
-              <p className=' text-[#71767B]'>
-                <span className='text-pri font-chirp-bold'>0</span> Tweets
-                citados
+              <p className=' text-[#71767B] max-[695px]:text-[14px] '>
+                <span className='text-pri max-[695px]:text-[14px] font-chirp-bold'>
+                  0
+                </span>{' '}
+                Tweets citados
               </p>
             </div>
             <div>
-              <p className=' text-[#71767B]'>
-                <span className='text-pri font-chirp-bold'>{addLike}</span> Me
-                gusta
+              <p className=' text-[#71767B] max-[695px]:text-[14px] '>
+                <span className='text-pri max-[695px]:text-[14px] font-chirp-bold'>
+                  {addLike}
+                </span>{' '}
+                Me gusta
               </p>
             </div>
           </div>
