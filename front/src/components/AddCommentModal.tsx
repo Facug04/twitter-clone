@@ -19,7 +19,7 @@ type Props = {
   description: string
   username: string
   timeAgo: string
-  changeComment: (com: string) => void
+  changeComment?: (com: string) => void
 }
 
 export default function AddCommentModal({
@@ -40,7 +40,9 @@ export default function AddCommentModal({
       setLoading(true)
       postComment(id, image, actualUser, comment)
         .then(() => {
-          changeComment(comment)
+          if (changeComment) {
+            changeComment(comment)
+          }
           changeModal()
         })
         .catch((err) => console.error(err))

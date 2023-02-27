@@ -1,8 +1,7 @@
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Link, useParams } from 'react-router-dom'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { useForm } from 'react-hook-form'
+import { useQuery } from '@tanstack/react-query'
 
 import {
   deleteComment,
@@ -35,33 +34,12 @@ import type { Comment as CommentType } from '../types'
 import Loader from './icons/Loader'
 
 type Props = {
-  // image: string | undefined
   actualUser: string | undefined | null
   idUser: string | undefined
   image: string | null | undefined
-  // comments: Comment[]
-  // id: string
-  // addPost: Comment[]
-  // changePost: (comment: Comment) => void
-  // username: string
-  // initialComments: Comment[]
-  // changeInitialComments: (idComment: string) => void
 }
 
-export default function Comments({
-  actualUser,
-  idUser,
-  image,
-}: // image,
-// actualUser,
-// comments,
-// id,
-// addPost,
-// changePost,
-// username,
-// initialComments,
-// changeInitialComments,
-Props) {
+export default function Comments({ actualUser, idUser, image }: Props) {
   const { id } = useParams()
   const {
     data: comment,
@@ -89,13 +67,6 @@ Props) {
   const [comments, setComments] = useState<CommentType[]>([])
   const [views, setViews] = useState(Math.floor(Math.random() * 501))
   const [loading, setLoading] = useState(false)
-
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm()
 
   useEffect(() => {
     if (isSuccess) {
