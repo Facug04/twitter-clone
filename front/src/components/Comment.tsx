@@ -34,11 +34,15 @@ export default function Comment({
           <div className='flex gap-2'>
             <div>
               <div className='flex gap-1 items-center'>
-                <p className='font-chirp-bold text-pri'>{username}</p>
+                <p className='font-chirp-bold text-pri max-[695px]:text-[15px]'>
+                  {username}
+                </p>
                 {image && <Verified />}
-                <p className='text-third'>· {timeAgo}</p>
+                <p className='max-[695px]:text-[15px] text-third'>
+                  · {timeAgo}
+                </p>
               </div>
-              <p className='text-[#71767B] text-[15px]'>
+              <p className='text-[#71767B] text-[14px] min-[695px]:text-[15px]'>
                 En respuesta a{' '}
                 <span className='text-primary'>@{userComment}</span>
               </p>
@@ -49,7 +53,7 @@ export default function Comment({
           </div>
         </div>
         <div>
-          <p className='mb-2 text-[#d5d7d8] text-[17px]'>{description}</p>
+          <p className=' text-pri text-[17px] mb-2'>{description}</p>
 
           <div className='flex justify-between'>
             <div className='flex gap-8'>

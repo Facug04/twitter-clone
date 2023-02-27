@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Link, useParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -31,6 +31,8 @@ import Gift from './icons/Gift'
 import Images from './icons/Images'
 import Ubication from './icons/Ubication'
 import Comment from './Comment'
+import type { Comment as CommentType } from '../types'
+import Loader from './icons/Loader'
 
 type Props = {
   // image: string | undefined
@@ -74,7 +76,7 @@ Props) {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     retry: 2,
-    staleTime: 0,
+    staleTime: Infinity,
     cacheTime: 15000,
   })
 
@@ -84,6 +86,9 @@ Props) {
   const [commentModal, setCommentModal] = useState(false)
   const [addCommentModal, setAddCommentModal] = useState(false)
   const [addComment, setAddComment] = useState('')
+  const [comments, setComments] = useState<CommentType[]>([])
+  const [views, setViews] = useState(Math.floor(Math.random() * 501))
+  const [loading, setLoading] = useState(false)
 
   const {
     register,
@@ -115,12 +120,22 @@ Props) {
   })
 
   const onSubmit = () => {
-    if (addComment.length > 1 && addComment.length < 300) {
+    if (addComment.length >= 1 && addComment.length < 300) {
+      setLoading(true)
       postComment(comment._id, image, actualUser, addComment)
         .then(() => {
-          // changeModal()
+          const comm = {
+            username: actualUser || ' ',
+            comment: addComment,
+            image: image || ' ',
+            idComment: crypto.randomUUID(),
+            createdAt: new Date(),
+          }
+          setComments([...comments, comm])
+          setAddComment('')
         })
         .catch((err) => console.error(err))
+        .finally(() => setLoading(false))
     }
   }
 
@@ -159,7 +174,7 @@ Props) {
   //     })
   //     .catch((err) => console.error(err))
   // }
-
+  console.log({ comments })
   return (
     <div className='border-[#2f3336] border-x-[1.5px] h-full'>
       <div className='pr-4 pl-2.5 h-[53px] flex items-center gap-7 mb-3'>
@@ -209,7 +224,7 @@ Props) {
         <p className='text-[15px] min-[695px]:text-base text-[#71767B]'>
           {hour} · {date} ·{' '}
           <span className='text-pri text-[15px] font-chirp-bold'>
-            {Math.floor(Math.random() * 501)} mil
+            {views} mil
           </span>{' '}
           <span className='text-[14.5px]'>Reproducciones</span>
         </p>
@@ -269,6 +284,16 @@ Props) {
               username={comment.username}
               description={comment.description}
               timeAgo={timeAgo}
+              changeComment={(com: string) => {
+                const comm = {
+                  username: actualUser || ' ',
+                  comment: com,
+                  image: image || ' ',
+                  idComment: crypto.randomUUID(),
+                  createdAt: new Date(),
+                }
+                setComments([...comments, comm])
+              }}
               changeModal={() => setAddCommentModal(false)}
             />
           )}
@@ -295,7 +320,7 @@ Props) {
       </div>
       {!!image && (
         <div className='px-4 py-3 border-[#2f3336] border-b-[1.5px]'>
-          <p className='text-[#71767B] text-base ml-[60px]'>
+          <p className='text-[#71767B] text-[15px] min-[695px]:text-base ml-[60px]'>
             Respondiendo a
             <span className='text-primary'> @{comment.username}</span>
           </p>
@@ -331,18 +356,28 @@ Props) {
                 </div>
                 <button
                   onClick={onSubmit}
-                  className=' bg-[#0e4e78] text-base font-chirp-bold py-[6px] px-3 text-[#808080] rounded-[18px] hover: duration-200 ease-linear'
+                  className={`${
+                    addComment.length >= 1
+                      ? 'bg-primary text-white'
+                      : 'bg-[#0e4e78] text-[#808080]'
+                  } ${
+                    loading && 'px-10'
+                  } text-base font-chirp-bold py-[6px] px-3 rounded-[18px] hover: duration-200 ease-linear`}
                 >
-                  Responder
+                  {loading ? (
+                    <Loader w='w-5' h='h-5' color='fill-white' />
+                  ) : (
+                    'Responder'
+                  )}
                 </button>
               </div>
             </div>
           </div>
         </div>
       )}
-      {!!comment.comments.length && (
-        <div>
-          {comment.comments.map((com, index) => (
+      {(!!comment.comments.length || !!comments.length) && (
+        <div className='max-[505px]:mb-[50px]'>
+          {comment.comments.concat(comments).map((com, index) => (
             <Comment
               userComment={comment.username}
               description={com.comment}

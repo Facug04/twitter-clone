@@ -37,7 +37,7 @@ export default function SesionMobile({
     <div onClick={changeModal} className='absolute top-[-140px] left-[-95px]'>
       <div
         onClick={(e) => e.stopPropagation()}
-        className='w-[250px] relative bg-black rounded-2xl py-4 shadow-profile text-[15px] text-pri font-chirp-heavy'
+        className='w-[250px] relative bg-black rounded-2xl py-6 shadow-profile text-[15px] text-pri font-chirp-heavy'
       >
         <div className='flex items-center justify-center absolute right-[-1px] top-[-3px]'>
           <button

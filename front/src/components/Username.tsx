@@ -28,11 +28,11 @@ export default function Username({
   }
 
   return (
-    <div className='fixed mb-14 min-[505px]:mb-2 min-[1265px]:hidden flex justify-end bottom-0 z-[200] max-[505px]:w-full max-[600px]:w-[calc(100%-60px)] max-[695px]:w-[calc(100%-88px)]  min-[1266px]:w-[605px] max-[1265px]:w-[598px]'>
+    <div className='pointer-events-none fixed mb-14 min-[505px]:mb-2 min-[1265px]:hidden flex justify-end bottom-0 z-[200] max-[505px]:w-full max-[600px]:w-[calc(100%-60px)] max-[695px]:w-[calc(100%-88px)]  min-[1266px]:w-[605px] max-[1265px]:w-[598px]'>
       <div
         onClick={() => setModal(true)}
-        className={`flex max-[695px]:mr-2 relative bg-black border-[#2f3336] border-[1.5px] w-fit px-3 gap-5 py-3 items-center ${
-          !modal && 'hover:bg-[#e7e9ea1a]'
+        className={`pointer-events-auto flex max-[695px]:mr-2 relative bg-black border-[#2f3336] border-[1.5px] w-fit px-3 gap-5 py-3 items-center ${
+          !modal && 'hover:bg-[#131212]'
         } rounded-full duration-100 ease-linear cursor-pointer`}
       >
         {modal && name.isReady && (
@@ -56,19 +56,21 @@ export default function Username({
           </div>
           {user ? (
             <div>
-              <h3 className='font-chirp-bold text-pri text-[15px]'>
+              <h3 className='font-chirp-bold text-pri text-[15px] min-[425px]:text-[14px]'>
                 {currentUser?.displayName}
               </h3>
-              <h4 className='text-secondary text-[15px]'>
-                {currentUser?.displayName}
+              <h4 className='text-secondary text-[15px] min-[425px]:text-[13px]'>
+                @{currentUser?.displayName}
               </h4>
             </div>
           ) : name.isReady ? (
             <div>
-              <h3 className='font-chirp-bold text-pri text-[15px]'>
+              <h3 className='font-chirp-bold text-pri text-[15px] min-[425px]:text-[14px]'>
                 {name.username}
               </h3>
-              <h4 className='text-secondary text-[15px]'>@{name.username}</h4>
+              <h4 className='text-secondary text-[15px] min-[425px]:text-[13px]'>
+                @{name.username}
+              </h4>
             </div>
           ) : (
             <form className='flex flex-col items-center' onSubmit={submitName}>
@@ -78,10 +80,10 @@ export default function Username({
                 onChange={(e) => {
                   changeName(e.target.value, false)
                 }}
-                className='bg-transparent text-pri font-chirp-bold placeholder:font-chirp-bold mb-1 placeholder:text-[15px] w-[130px] outline-none border-primary border-b-2'
+                className='bg-transparent min-[425px]:text-[14px] text-pri font-chirp-bold placeholder:font-chirp-bold mb-1 placeholder:text-[15px] w-[130px] min-[425px]:w-[100px] outline-none border-primary border-b-2 min-[425px]:placeholder:text-[14px]'
                 placeholder='Escribe tu nombre'
               />
-              <button className='bg-primary w-4/5 text-pri px-2 rounded-lg font-chirp-bold'>
+              <button className='bg-primary w-4/5 text-pri px-2 rounded-lg font-chirp-bold min-[425px]:text-[14px]'>
                 Enviar
               </button>
             </form>

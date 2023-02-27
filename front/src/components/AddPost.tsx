@@ -92,7 +92,7 @@ export default function AddPost({ user, currentUser, name }: Props) {
           formData
         )
         .then((res) => res.data)
-        .catch((err) => console.log(err))
+        .catch((err) => console.error(err))
       return secure_url
     } else ''
   }
