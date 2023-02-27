@@ -19,7 +19,7 @@ const bootstrap = async () => {
   await mongoose.connect(process.env.MONGODB_URL)
 
   expressApp.listen(PORT, () => {
-    console.log(`Server is listening on ${PORT} prueba`)
+    console.log(`Server is listening on ${PORT}`)
   })
 }
 
