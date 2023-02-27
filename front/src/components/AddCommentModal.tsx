@@ -4,6 +4,7 @@ import { postComment } from '../helpers/api'
 import Emoji from './icons/Emoji'
 import Gift from './icons/Gift'
 import Images from './icons/Images'
+import Loader from './icons/Loader'
 import Program from './icons/Program'
 import Survey from './icons/Survey'
 import Ubication from './icons/Ubication'
@@ -18,6 +19,7 @@ type Props = {
   description: string
   username: string
   timeAgo: string
+  changeComment: (com: string) => void
 }
 
 export default function AddCommentModal({
@@ -28,17 +30,21 @@ export default function AddCommentModal({
   username,
   description,
   timeAgo,
+  changeComment,
 }: Props) {
   const [comment, setComment] = useState('')
-  const onSubmit = () => {
-    console.log({ actualUser })
+  const [loading, setLoading] = useState(false)
 
-    if (comment.length > 1 && comment.length < 300) {
+  const onSubmit = () => {
+    if (comment.length >= 1 && comment.length < 300) {
+      setLoading(true)
       postComment(id, image, actualUser, comment)
         .then(() => {
+          changeComment(comment)
           changeModal()
         })
         .catch((err) => console.error(err))
+        .finally(() => setLoading(false))
     }
   }
 
@@ -55,7 +61,7 @@ export default function AddCommentModal({
           e.preventDefault()
           e.stopPropagation()
         }}
-        className='max-h-[346px] h-full w-[600px] bg-black rounded-2xl mt-8'
+        className='w-full min-[650px]:max-h-[346px] h-full min-[650px]:w-[600px] bg-black min-[650px]:rounded-2xl min-[650px]:mt-8'
       >
         <div className='h-[53px] pl-1 pr-4 flex items-center justify-between mb-3'>
           <button
@@ -81,10 +87,14 @@ export default function AddCommentModal({
               <div className='flex items-center justify-between text-base'>
                 <div className='flex gap-2'>
                   <div className='flex gap-1 items-center'>
-                    <p className='font-chirp-bold text-pri'>{username}</p>
+                    <p className='font-chirp-bold text-pri max-[695px]:text-[15px]'>
+                      {username}
+                    </p>
                     {image && <Verified />}
                   </div>
-                  <p className='text-third'>· {timeAgo}</p>
+                  <p className='text-third text-[15px] min-[695px]:text-base'>
+                    · {timeAgo}
+                  </p>
                 </div>
               </div>
               <div>
@@ -127,21 +137,31 @@ export default function AddCommentModal({
                   <div className='flex items-center justify-center w-[34px] h-[34px]'>
                     <Survey />
                   </div>
-                  <div className='flex items-center justify-center w-[34px] h-[34px]'>
+                  <div className='max-[375px]:hidden flex items-center justify-center w-[34px] h-[34px]'>
                     <Emoji />
                   </div>
-                  <div className='flex items-center justify-center w-[34px] h-[34px]'>
+                  <div className='max-[375px]:hidden flex items-center justify-center w-[34px] h-[34px]'>
                     <Program />
                   </div>
-                  <div className='flex items-center justify-center w-[34px] h-[34px]'>
+                  <div className='max-[375px]:hidden flex items-center justify-center w-[34px] h-[34px]'>
                     <Ubication />
                   </div>
                 </div>
                 <button
                   onClick={onSubmit}
-                  className=' bg-[#0e4e78] text-base font-chirp-bold py-[6px] px-3 text-[#808080] rounded-[18px] hover: duration-200 ease-linear'
+                  className={`${
+                    comment.length >= 1
+                      ? 'bg-primary text-white'
+                      : 'bg-[#0e4e78] text-[#808080]'
+                  } ${
+                    loading && 'px-10'
+                  } text-base font-chirp-bold py-[6px] px-3  rounded-[18px] hover: duration-200 ease-linear`}
                 >
-                  Responder
+                  {loading ? (
+                    <Loader w='w-5' h='h-5' color='fill-white' />
+                  ) : (
+                    'Responder'
+                  )}
                 </button>
               </div>
             </form>
