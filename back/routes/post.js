@@ -5,8 +5,6 @@ import postModel from '../schemas/post-schema.js'
 
 const postRouter = express.Router()
 
-// pruebaRouter.use()
-
 postRouter.get('/', (req, res) => {
   const { page, order, filter } = req.query
 
