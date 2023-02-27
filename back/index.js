@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import cors from 'cors'
 
-import postRouter from './routes/post.js'
+import postRouter from './src/routes/post.js'
 
 dotenv.config()
 
