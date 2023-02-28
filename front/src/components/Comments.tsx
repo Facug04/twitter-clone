@@ -97,7 +97,12 @@ export default function Comments({ actualUser, idUser, image }: Props) {
   const onSubmit = () => {
     if (addComment.length >= 1 && addComment.length < 300) {
       setLoading(true)
-      postComment(comment._id, image, actualUser, addComment)
+      postComment({
+        id: comment._id,
+        userImage: image,
+        username: actualUser,
+        comment: addComment,
+      })
         .then(() => {
           const comm = {
             username: actualUser || ' ',
