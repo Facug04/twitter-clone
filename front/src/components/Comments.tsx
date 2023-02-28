@@ -55,7 +55,6 @@ export default function Comments({ actualUser, idUser, image }: Props) {
     refetchOnMount: false,
     retry: 2,
     staleTime: Infinity,
-    cacheTime: 15000,
   })
 
   const [like, setLike] = useState(false)
