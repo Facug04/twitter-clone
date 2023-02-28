@@ -16,7 +16,7 @@ expressApp.use(cors({ origin: true, credentials: true }))
 expressApp.use('/post', postRouter)
 
 const bootstrap = () => {
-  mongoose.connect('mongodb+srv://FacuMongoDb:juegoaplicacion1@db.atxgcyi.mongodb.net/?retryWrites=true&w=majority').then(() => {
+  mongoose.connect(process.env.MONGODB_URL).then(() => {
     expressApp.listen(PORT, () => {
       console.log(`Server is listening on ${PORT}`)
     })
