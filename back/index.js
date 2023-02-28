@@ -11,6 +11,7 @@ const PORT = 3001
 const expressApp = express()
 
 expressApp.use(express.json())
+
 expressApp.use(cors({ origin: true, credentials: true }))
 
 expressApp.use('/post', postRouter)
