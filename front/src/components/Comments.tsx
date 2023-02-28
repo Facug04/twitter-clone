@@ -80,7 +80,12 @@ export default function Comments({ actualUser, idUser, image }: Props) {
     } else setLike(false)
   }, [idUser])
 
-  if (isLoading) return <h3 className='text-white'>Cargando</h3>
+  if (isLoading)
+    return (
+      <h3 className='h-screen flex justify-center items-center'>
+        <Loader color='fill-[#1d9bf0]' h='h-8' w='w-8' />
+      </h3>
+    )
 
   if (isError) return <h3>Ha ocurrido un error</h3>
 
@@ -250,6 +255,7 @@ export default function Comments({ actualUser, idUser, image }: Props) {
           {addCommentModal && (
             <AddCommentModal
               id={comment._id}
+              userImage={image}
               image={comment.image}
               actualUser={actualUser}
               username={comment.username}
