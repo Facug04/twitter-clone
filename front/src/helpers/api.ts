@@ -3,6 +3,13 @@ import { FieldValues } from 'react-hook-form'
 
 import type { Post, Filter, PaginatedPost } from '../types'
 
+export type commentPost = {
+  username: string | null | undefined
+  comment: string
+  userImage: string | null | undefined
+  id: string
+}
+
 export const getPosts = async (
   page: number,
   filters: Filter
@@ -47,17 +54,17 @@ export const postLike = async (id: string, idUser: string) => {
   )
 }
 
-export const postComment = async (
-  id: string,
-  image: string | undefined | null,
-  username: string | undefined | null,
-  comment: string
-) => {
+export const postComment = async ({
+  id,
+  userImage,
+  username,
+  comment,
+}: commentPost) => {
   await axios.post(
     `https://twitter-clone-production-c817.up.railway.app/post/comment`,
     {
       id,
-      image,
+      userImage,
       username,
       comment,
     }
