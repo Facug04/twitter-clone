@@ -40,7 +40,7 @@ export default function AddCommentModal({
   const onSubmit = () => {
     if (comment.length >= 1 && comment.length < 300) {
       setLoading(true)
-      postComment(id, userImage, actualUser, comment)
+      postComment({ id, userImage, username: actualUser, comment })
         .then(() => {
           if (changeComment) {
             changeComment(comment)
