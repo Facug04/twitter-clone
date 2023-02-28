@@ -15,11 +15,11 @@ expressApp.use(cors({ origin: true, credentials: true }))
 
 expressApp.use('/post', postRouter)
 
-const bootstrap = async () => {
-  await mongoose.connect(process.env.MONGODB_URL)
-
-  expressApp.listen(PORT, () => {
-    console.log(`Server is listening on ${PORT}`)
+const bootstrap = () => {
+  mongoose.connect(process.env.MONGODB_URL).then(() => {
+    expressApp.listen(PORT, () => {
+      console.log(`Server is listening on ${PORT}`)
+    })
   })
 }
 
