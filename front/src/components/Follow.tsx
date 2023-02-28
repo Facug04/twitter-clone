@@ -1,6 +1,7 @@
 import Profile from './Profile'
 import goncy from '/goncy.jpg'
 import midudev from '/midudev.jpg'
+import fazt from '/fazt.jpg'
 
 export default function Follow() {
   return (
@@ -10,7 +11,7 @@ export default function Follow() {
       </h3>
       <Profile name='goncy.tsx' username='goncy' img={goncy} />
       <Profile name='Miguel Á. Durán' username='midudev' img={midudev} />
-      <Profile name='goncy.tsx' username='goncy' img={goncy} />
+      <Profile name='Fazt' username='FaztTech' img={fazt} />
       <div className='h-[52px] hover:bg-twittHover px-4 duration-200 ease-in-out flex items-center'>
         <p className=' text-primary text-base'>Mostrar más</p>
       </div>
