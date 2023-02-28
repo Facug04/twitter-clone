@@ -198,8 +198,10 @@ export default function AddPost({ user, currentUser, name }: Props) {
               <div>
                 <button
                   className={` ${
-                    isDisabled ? 'bg-[#0e4e78]' : 'bg-primary text-white'
-                  }  text-base font-chirp-bold py-[6px] px-3 text-[#808080] rounded-[18px] w-[95px] hover: duration-200 ease-linear`}
+                    isDisabled
+                      ? 'bg-[#0e4e78] text-[#808080]'
+                      : 'bg-primary text-white'
+                  }  text-base font-chirp-bold py-[6px] px-3 rounded-[18px] w-[95px] hover: duration-200 ease-linear`}
                 >
                   {isLoading ? (
                     <Loader h='h-6' w='w-6' color='fill-white' />

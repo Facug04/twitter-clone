@@ -17,10 +17,10 @@ export default function Trending() {
         <h2 className='text-pri text-normal font-chirp-heavy mb-[13px] px-4'>
           Qué está pasando
         </h2>
-        <Trend type='Trabajo' trend='#BuscandoTrabajo' tweets='522 mil' />
-        <Trend type='Desarrollo' trend='React y Express' tweets='102 mil' />
+        <Trend type='Trabajo' trend='React y Express' tweets='522 mil' />
+        <Trend type='Desarrollo' trend='TypeScript' tweets='102 mil' />
         <Trend type='Desarrollo' trend='MongoDB' tweets='47 mil' />
-        <Trend type='Desarrollo' trend='TypeScript' tweets='79 mil' />
+        <Trend type='Desarrollo' trend='Tailwind' tweets='79 mil' />
         <Trend type='Personas' trend='Facundo Gonzalez' tweets='2' />
         <div className='h-[52px] hover:bg-twittHover px-4 duration-200 ease-in-out flex items-center'>
           <p className=' text-primary text-base'>Mostrar más</p>

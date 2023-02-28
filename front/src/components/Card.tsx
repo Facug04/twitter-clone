@@ -17,12 +17,13 @@ import RedLike from './icons/RedLike'
 import LikeModal from './LikeModal'
 import CommentModal from './CommentModal'
 import { Link } from 'react-router-dom'
-import AddCommentModal from './AddCommentModal'
 import { timeAgoFormat } from '../helpers/timeAgo'
+import AddCommentMutate from './AddCommentMutate'
 
 type Props = Post & {
   idUser: string | undefined
   actualUser: string | undefined | null
+  userImage: string | undefined | null
 }
 
 export default function Card({
@@ -36,6 +37,7 @@ export default function Card({
   idUser,
   actualUser,
   commentImage,
+  userImage,
 }: Props) {
   const [like, setLike] = useState(false)
   const [addLike, setAddLike] = useState(likes.length)
@@ -129,9 +131,10 @@ export default function Card({
                   />
                 )}
                 {addCommentModal && (
-                  <AddCommentModal
+                  <AddCommentMutate
                     id={_id}
                     image={image}
+                    userImage={userImage}
                     actualUser={actualUser}
                     username={username}
                     description={description}

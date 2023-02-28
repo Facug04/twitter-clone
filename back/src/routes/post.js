@@ -56,7 +56,7 @@ postRouter.post('/like', async (req, res) => {
 })
 
 postRouter.post('/comment', async (req, res) => {
-  const { id, username, comment, image } = req.body
+  const { id, username, comment, userImage } = req.body
 
   if (!id) return res.status(404).send()
 
@@ -72,7 +72,7 @@ postRouter.post('/comment', async (req, res) => {
       {
         comments: [
           ...comments,
-          { idComment, username, comment, image, createdAt },
+          { idComment, username, comment, image: userImage, createdAt },
         ],
       }
     )

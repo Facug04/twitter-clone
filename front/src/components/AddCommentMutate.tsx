@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { postComment } from '../helpers/api'
 import Emoji from './icons/Emoji'
@@ -23,7 +24,7 @@ type Props = {
   changeComment?: (com: string) => void
 }
 
-export default function AddCommentModal({
+export default function AddCommentMutate({
   id,
   image,
   actualUser,
@@ -36,19 +37,23 @@ export default function AddCommentModal({
 }: Props) {
   const [comment, setComment] = useState('')
   const [loading, setLoading] = useState(false)
+  const queryClient = useQueryClient()
+  const { mutate } = useMutation(postComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['posts'])
+    },
+  })
 
   const onSubmit = () => {
     if (comment.length >= 1 && comment.length < 300) {
       setLoading(true)
-      postComment({ id, userImage, username: actualUser, comment })
-        .then(() => {
-          if (changeComment) {
-            changeComment(comment)
-          }
+      const newComment = { id, userImage, username: actualUser, comment }
+      mutate(newComment, {
+        onSuccess: () => {
+          setLoading(false)
           changeModal()
-        })
-        .catch((err) => console.error(err))
-        .finally(() => setLoading(false))
+        },
+      })
     }
   }
 

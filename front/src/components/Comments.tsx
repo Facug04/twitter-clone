@@ -55,7 +55,6 @@ export default function Comments({ actualUser, idUser, image }: Props) {
     refetchOnMount: false,
     retry: 2,
     staleTime: Infinity,
-    cacheTime: 15000,
   })
 
   const [like, setLike] = useState(false)
@@ -80,7 +79,12 @@ export default function Comments({ actualUser, idUser, image }: Props) {
     } else setLike(false)
   }, [idUser])
 
-  if (isLoading) return <h3 className='text-white'>Cargando</h3>
+  if (isLoading)
+    return (
+      <h3 className='h-screen flex justify-center items-center'>
+        <Loader color='fill-[#1d9bf0]' h='h-8' w='w-8' />
+      </h3>
+    )
 
   if (isError) return <h3>Ha ocurrido un error</h3>
 
@@ -93,7 +97,12 @@ export default function Comments({ actualUser, idUser, image }: Props) {
   const onSubmit = () => {
     if (addComment.length >= 1 && addComment.length < 300) {
       setLoading(true)
-      postComment(comment._id, image, actualUser, addComment)
+      postComment({
+        id: comment._id,
+        userImage: image,
+        username: actualUser,
+        comment: addComment,
+      })
         .then(() => {
           const comm = {
             username: actualUser || ' ',
@@ -250,6 +259,7 @@ export default function Comments({ actualUser, idUser, image }: Props) {
           {addCommentModal && (
             <AddCommentModal
               id={comment._id}
+              userImage={image}
               image={comment.image}
               actualUser={actualUser}
               username={comment.username}

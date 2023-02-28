@@ -70,6 +70,7 @@ export default function App() {
                   idUser={currentUser?.uid}
                   onChangeFilters={onChangeFilters}
                   username={currentUser?.displayName}
+                  userImage={currentUser?.photoURL}
                 />
                 <Username
                   currentUser={currentUser}

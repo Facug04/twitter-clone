@@ -13,6 +13,7 @@ type Props = {
   onChangeFilters: (order: string, filter?: string) => void
   idUser: string | undefined
   username: string | undefined | null
+  userImage: string | undefined | null
 }
 
 export default function Posts({
@@ -20,6 +21,7 @@ export default function Posts({
   onChangeFilters,
   idUser,
   username,
+  userImage,
 }: Props) {
   const { data, isLoading, isError, hasNextPage, fetchNextPage } =
     useInfiniteQuery({
@@ -89,6 +91,7 @@ export default function Posts({
             comments={post.comments}
             commentImage={post.commentImage}
             actualUser={username}
+            userImage={userImage}
           />
         ))}
       </InfiteScroll>
