@@ -23,6 +23,7 @@ import { timeAgoFormat } from '../helpers/timeAgo'
 type Props = Post & {
   idUser: string | undefined
   actualUser: string | undefined | null
+  userImage: string | undefined | null
 }
 
 export default function Card({
@@ -36,6 +37,7 @@ export default function Card({
   idUser,
   actualUser,
   commentImage,
+  userImage,
 }: Props) {
   const [like, setLike] = useState(false)
   const [addLike, setAddLike] = useState(likes.length)
@@ -132,6 +134,7 @@ export default function Card({
                   <AddCommentModal
                     id={_id}
                     image={image}
+                    userImage={userImage}
                     actualUser={actualUser}
                     username={username}
                     description={description}

@@ -14,6 +14,7 @@ import img from '/user-icon.png'
 type Props = {
   image: string | undefined
   actualUser: string | undefined | null
+  userImage: string | undefined | null
   id: string
   changeModal: () => void
   description: string
@@ -31,6 +32,7 @@ export default function AddCommentModal({
   description,
   timeAgo,
   changeComment,
+  userImage,
 }: Props) {
   const [comment, setComment] = useState('')
   const [loading, setLoading] = useState(false)
@@ -38,7 +40,7 @@ export default function AddCommentModal({
   const onSubmit = () => {
     if (comment.length >= 1 && comment.length < 300) {
       setLoading(true)
-      postComment(id, image, actualUser, comment)
+      postComment(id, userImage, actualUser, comment)
         .then(() => {
           if (changeComment) {
             changeComment(comment)
