@@ -1,17 +1,19 @@
-import { GoogleAuthProvider, User } from 'firebase/auth'
+import { User } from 'firebase/auth'
 import { Link } from 'react-router-dom'
 
-import Explore from './icons/Explore'
-import Home from './icons/Home'
-import Lists from './icons/Lists'
-import Messages from './icons/Messages'
-import Notifications from './icons/Notifications'
-import Options from './icons/Options'
-import Profile from './icons/Profile'
-import Saved from './icons/Saved'
-import Twittear from './icons/Twittear'
 import Twitter from './icons/Twitter'
 import NavProfile from './NavProfile'
+import {
+  Home,
+  Explore,
+  Notifications,
+  Messages,
+  Saved,
+  Lists,
+  Profile,
+  Options,
+  Twittear,
+} from './icons/NavIcons'
 
 type Props = {
   user: boolean | undefined

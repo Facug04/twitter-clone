@@ -2,7 +2,7 @@ import { GoogleAuthProvider } from 'firebase/auth'
 import { useEffect } from 'react'
 
 import { singInGoogle } from '../helpers/firebase'
-import CommentColor from './icons/CommentColor'
+import { CommentColor } from './icons/TweetsIcons'
 
 type Props = {
   changeModal: () => void

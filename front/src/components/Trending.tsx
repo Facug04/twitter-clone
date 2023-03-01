@@ -1,5 +1,3 @@
-// import { Link } from 'react-router-dom'
-
 import Follow from './Follow'
 import Search from './icons/Search'
 import Trend from './Trend'

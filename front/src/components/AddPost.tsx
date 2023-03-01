@@ -6,13 +6,15 @@ import axios from 'axios'
 
 import { post } from '../helpers/api'
 import Loader from './icons/Loader'
-import Images from './icons/Images'
-import Gift from './icons/Gift'
-import Survey from './icons/Survey'
-import Emoji from './icons/Emoji'
-import Program from './icons/Program'
-import Ubication from './icons/Ubication'
 import Twitter from './icons/Twitter'
+import {
+  Images,
+  Gift,
+  Survey,
+  Emoji,
+  Program,
+  Ubication,
+} from './icons/AddTweetIcons'
 
 type Props = {
   user: boolean | undefined

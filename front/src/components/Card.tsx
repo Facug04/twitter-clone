@@ -4,19 +4,21 @@ import { useEffect, useState } from 'react'
 import type { Post, Comment } from '../types'
 import { postLike } from '../helpers/api'
 import img from '/user-icon.png'
-import Like from './icons/Like'
-import CommentIcon from './icons/CommentIcon'
-import Retwitt from './icons/Retwitt'
-import See from './icons/See'
-import Share from './icons/Share'
 import More from './icons/More'
-import Verified from './icons/Verified'
-import RedLike from './icons/RedLike'
 import LikeModal from './LikeModal'
 import CommentModal from './CommentModal'
 import { Link } from 'react-router-dom'
 import { timeAgoFormat } from '../helpers/timeAgo'
 import AddCommentMutate from './AddCommentMutate'
+import {
+  Like,
+  CommentIcon,
+  Retwitt,
+  See,
+  Share,
+  Verified,
+  RedLike,
+} from './icons/TweetsIcons'
 
 type Props = Post & {
   idUser: string | undefined

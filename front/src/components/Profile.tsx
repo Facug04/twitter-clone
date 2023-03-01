@@ -1,4 +1,4 @@
-import Verified from './icons/Verified'
+import { Verified } from './icons/TweetsIcons'
 
 type Props = {
   name: string

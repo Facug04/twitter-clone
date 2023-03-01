@@ -1,5 +1,3 @@
-// import { Link } from 'react-router-dom'
-
 import InfiteScroll from 'react-infinite-scroll-component'
 import { useInfiniteQuery } from '@tanstack/react-query'
 

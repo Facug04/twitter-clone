@@ -2,15 +2,17 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { postComment } from '../helpers/api'
-import Emoji from './icons/Emoji'
-import Gift from './icons/Gift'
-import Images from './icons/Images'
 import Loader from './icons/Loader'
-import Program from './icons/Program'
-import Survey from './icons/Survey'
-import Ubication from './icons/Ubication'
-import Verified from './icons/Verified'
 import img from '/user-icon.png'
+import { Verified } from './icons/TweetsIcons'
+import {
+  Images,
+  Gift,
+  Survey,
+  Emoji,
+  Program,
+  Ubication,
+} from './icons/AddTweetIcons'
 
 type Props = {
   image: string | undefined

@@ -1,5 +1,3 @@
-// import { Link } from 'react-router-dom'
-
 import More from './icons/More'
 
 type Props = {

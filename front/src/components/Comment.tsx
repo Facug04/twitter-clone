@@ -1,11 +1,13 @@
-import Like from './icons/Like'
-import CommentIcon from './icons/CommentIcon'
-import Retwitt from './icons/Retwitt'
-import See from './icons/See'
-import Share from './icons/Share'
 import More from './icons/More'
-import Verified from './icons/Verified'
 import { timeAgoFormat } from '../helpers/timeAgo'
+import {
+  Like,
+  CommentIcon,
+  Retwitt,
+  See,
+  Share,
+  Verified,
+} from './icons/TweetsIcons'
 
 type Props = {
   description: string
