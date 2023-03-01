@@ -76,7 +76,11 @@ export default function Posts({
         dataLength={posts.length}
         hasMore={hasNextPage || false}
         next={() => fetchNextPage()}
-        loader={'cargando'}
+        loader={
+          <div className='py-4'>
+            <Loader h='h-7' w='w-7' color='fill-primary' />
+          </div>
+        }
       >
         {posts.map((post) => (
           <Card
