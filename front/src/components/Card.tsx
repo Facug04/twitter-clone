@@ -1,7 +1,5 @@
 // import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { formatDistance } from 'date-fns'
-import { es } from 'date-fns/locale'
 
 import type { Post, Comment } from '../types'
 import { postLike } from '../helpers/api'
