@@ -46,7 +46,7 @@ export default function AddPost({ user, currentUser, name }: Props) {
   })
 
   const onSubmit = async (data: FieldValues) => {
-    if (!name.isReady) setError(true)
+    if (!name.isReady && !user) setError(true)
     else {
       setError(false)
       if (user && !isDisabled) {
@@ -77,8 +77,6 @@ export default function AddPost({ user, currentUser, name }: Props) {
       }
     }
   }
-
-  if (user === undefined) return <div></div>
 
   const uploadImage = async () => {
     const id = crypto.randomUUID()
