@@ -38,8 +38,6 @@ export function Notifications() {
   )
 }
 
-export default Notifications
-
 export function Messages() {
   return (
     <svg
