@@ -54,7 +54,11 @@ export default function Posts({
   }
 
   if (isError) {
-    return <div className='text-white mx-auto'>An error has ocurred</div>
+    return (
+      <div className='mt-3'>
+        <h2 className='text-white text-center text-xl'>An error has ocurred</h2>
+      </div>
+    )
   }
 
   const posts = data?.pages.flatMap((page: any) => page.docs)
