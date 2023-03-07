@@ -55,7 +55,6 @@ export default function App() {
       </div>
       <div className='min-[1035px]:w-[990px] flex max-[695px]:flex-1'>
         <Routes>
-          {/* <Route path='/' element={<Games />} /> */}
           <Route
             path='/'
             element={
@@ -103,8 +102,6 @@ export default function App() {
               </div>
             }
           />
-          {/* <Route path='/game/:id' element={<Detail />} /> */}
-          {/* <Route path="*" component={NotFound} /> */}
         </Routes>
         <div className='min-[1077px]:flex-growWidth pl-8 h-fit sticky top-0 max-[1078px]:pl-5 max-[985px]:hidden'>
           <Trending />
