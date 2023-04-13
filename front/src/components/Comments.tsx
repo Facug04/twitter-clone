@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Link, useParams } from 'react-router-dom'
@@ -10,28 +11,26 @@ import {
   postLike,
 } from '../helpers/api'
 
-import { useEffect, useState } from 'react'
 import img from '/user-icon.png'
 import LeftArrow from './icons/LeftArrow'
-import Verified from './icons/Verified'
 import More from './icons/More'
-import CommentIcon from './icons/CommentIcon'
-import Retwitt from './icons/Retwitt'
-import Like from './icons/Like'
-import Share from './icons/Share'
-import RedLike from './icons/RedLike'
 import LikeModal from './LikeModal'
 import CommentModal from './CommentModal'
 import AddCommentModal from './AddCommentModal'
 import { timeAgoFormat } from '../helpers/timeAgo'
-
-import Emoji from './icons/Emoji'
-import Gift from './icons/Gift'
-import Images from './icons/Images'
-import Ubication from './icons/Ubication'
 import Comment from './Comment'
 import type { Comment as CommentType } from '../types'
 import Loader from './icons/Loader'
+import { Images, Gift, Emoji, Ubication } from './icons/AddTweetIcons'
+
+import {
+  Like,
+  CommentIcon,
+  Retwitt,
+  Share,
+  Verified,
+  RedLike,
+} from './icons/TweetsIcons'
 
 type Props = {
   actualUser: string | undefined | null

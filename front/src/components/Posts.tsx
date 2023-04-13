@@ -1,5 +1,3 @@
-// import { Link } from 'react-router-dom'
-
 import InfiteScroll from 'react-infinite-scroll-component'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
@@ -49,14 +47,18 @@ export default function Posts({
 
   if (isLoading) {
     return (
-      <div className='py-5 pb-10 px-20'>
+      <div className='py-5 pb-10 px-20 border-[#2f3336] border-x-[1.5px] h-full'>
         <Loader h='h-7' w='w-7' color='fill-primary' />
       </div>
     )
   }
 
   if (isError) {
-    return <div>An error has ocurred</div>
+    return (
+      <div className='mt-3'>
+        <h2 className='text-white text-center text-xl'>An error has ocurred</h2>
+      </div>
+    )
   }
 
   const posts = data?.pages.flatMap((page: any) => page.docs)
@@ -76,7 +78,11 @@ export default function Posts({
         dataLength={posts.length}
         hasMore={hasNextPage || false}
         next={() => fetchNextPage()}
-        loader={'cargando'}
+        loader={
+          <div className='py-4'>
+            <Loader h='h-7' w='w-7' color='fill-primary' />
+          </div>
+        }
       >
         {posts.map((post) => (
           <Card

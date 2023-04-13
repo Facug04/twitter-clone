@@ -6,13 +6,15 @@ import axios from 'axios'
 
 import { post } from '../helpers/api'
 import Loader from './icons/Loader'
-import Images from './icons/Images'
-import Gift from './icons/Gift'
-import Survey from './icons/Survey'
-import Emoji from './icons/Emoji'
-import Program from './icons/Program'
-import Ubication from './icons/Ubication'
 import Twitter from './icons/Twitter'
+import {
+  Images,
+  Gift,
+  Survey,
+  Emoji,
+  Program,
+  Ubication,
+} from './icons/AddTweetIcons'
 
 type Props = {
   user: boolean | undefined
@@ -44,7 +46,7 @@ export default function AddPost({ user, currentUser, name }: Props) {
   })
 
   const onSubmit = async (data: FieldValues) => {
-    if (!name.isReady) setError(true)
+    if (!name.isReady && !user) setError(true)
     else {
       setError(false)
       if (user && !isDisabled) {
@@ -75,8 +77,6 @@ export default function AddPost({ user, currentUser, name }: Props) {
       }
     }
   }
-
-  if (user === undefined) return <div></div>
 
   const uploadImage = async () => {
     const id = crypto.randomUUID()

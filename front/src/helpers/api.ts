@@ -83,7 +83,7 @@ export const deleteComment = async (id: string, idComment: string) => {
 
 // export const getGame = (id: string | undefined): Promise<GameType> => {
 //   const game = axios
-//     .get(`https://post-app-h399.onrender.com/game/${id}`)
+//     .get(https://post-app-h399.onrender.com`)
 //     .then((res) => res.data)
 //   return game
 // }
